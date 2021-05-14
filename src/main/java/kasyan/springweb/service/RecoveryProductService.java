@@ -25,7 +25,7 @@ public class RecoveryProductService {
 
     //восстанавливаем удаленный ранее Product по его ID и отправка запроса в БД
     public void recovered(int id) {
-        ProductOfDelete productOfDelete = getProductService.findProductOfBascketByID(id);
+        var productOfDelete = getProductService.findProductOfBascketByID(id);
         saveProductService.saveProduct(productOfDelete.getCategory(), productOfDelete.getName(), productOfDelete.getPrice(),
                 productOfDelete.getDiscount(), productOfDelete.getTotalVolume());
         deleteProductService.deleteOfBasket(id);

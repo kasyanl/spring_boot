@@ -27,7 +27,7 @@ public class SaveProductService {
         int id = createId(newList);
         double actualPrice = calculating(price, discount);
 
-        Product product = new Product();
+        var product = new Product();
 
         product.setId(id);
         product.setCategory(category);
@@ -42,8 +42,8 @@ public class SaveProductService {
 
     public void saveProductOfDelete(int id)  {
 
-        ProductOfDelete productOfDelete = new ProductOfDelete();
-        Product product = getProductService.findById(id);
+        var productOfDelete = new ProductOfDelete();
+        var product = getProductService.findById(id);
 
         productOfDelete.setId(product.getId());
         productOfDelete.setCategory(product.getCategory());
@@ -57,8 +57,8 @@ public class SaveProductService {
 
     // выбор продукта для покупки (передаем количество или вес продукта), добавляем в отдельную БД
     public void saveBayProduct(int id, double quantity) {
-        Product product = getProductService.findById(id);
-        BuyProduct buyProduct = new BuyProduct();
+        var product = getProductService.findById(id);
+        var buyProduct = new BuyProduct();
         double totalPrice = product.getActualPrice() * quantity;
 
         buyProduct.setId(product.getId());
@@ -77,10 +77,10 @@ public class SaveProductService {
 
     // формирование ID с одновременной проверкой (если есть пропуск (например 2, 3, ,5 то будет присвоен id=4))
     public int createId(List<Product> newList) {
-        int id = 0; // по умолчанию id = 0
+        var id = 0; // по умолчанию id = 0
         if (!newList.isEmpty()) { // если записи имеются, проверяем на пропущенные id
             sortProductService.sortById(); //сортируем для корректной проверки
-            int i = 0;
+            int i = id;
             for (Product product : newList) { // проверяем
                 if (product.getId() == i) i++; // теперь i больше текущего id на 1
                 id = i; // присваиваем значение id (здесь id на 1 больше последнего проверенного)

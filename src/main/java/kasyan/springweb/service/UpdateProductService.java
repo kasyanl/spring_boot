@@ -35,7 +35,7 @@ public class UpdateProductService {
         List<BuyProduct> newListBuy = getProductService.findAllBuyProduct();
 
         for (BuyProduct buyProduct : newListBuy) {
-            Product product = getProductService.findById(buyProduct.getId());
+            var product = getProductService.findById(buyProduct.getId());
             double totalVolume = product.getTotalVolume() - buyProduct.getQuantity();
             update(product.getId(), product.getCategory(), product.getName(), product.getPrice(), product.getDiscount(), totalVolume);
         }

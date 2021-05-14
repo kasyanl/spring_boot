@@ -4,8 +4,6 @@ import kasyan.springweb.bean.BuyProduct;
 import kasyan.springweb.bean.Product;
 import kasyan.springweb.bean.ProductOfDelete;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +14,11 @@ import java.util.List;
 
 @Service
 public class ExportToExcelService {
-
+    static HSSFWorkbook workbook = new HSSFWorkbook();
     private GetProductService getProductService;
 
     // сервис для экспорта всего списка продуктов в excel
-    public static List<Product> exportAllList(List<Product> listProduct) {
+    public List<Product> exportAllList(List<Product> listProduct) {
         exportList(listProduct);
         return listProduct;
     }
@@ -31,8 +29,8 @@ public class ExportToExcelService {
     }
 
     // формирование таблицы excel и добавление данных из List
-    public static List<Product> exportList(List<Product> listProduct) {
-        HSSFWorkbook workbook = new HSSFWorkbook();
+    public List<Product> exportList(List<Product> listProduct) {
+
         Sheet sheet = workbook.createSheet("List products"); //название вкладки
         sheet.setColumnWidth(0, 1500); // ширина строк
         sheet.setColumnWidth(1, 6000);
@@ -42,60 +40,60 @@ public class ExportToExcelService {
         sheet.setColumnWidth(5, 3000);
         sheet.setColumnWidth(6, 3000);
         // даем название колонок таблицы
-        Row row = sheet.createRow(0); // первая строка
+        var row = sheet.createRow(0); // первая строка
 
-        Cell idTop = row.createCell(0);
+        var idTop = row.createCell(0);
         idTop.setCellValue("id"); // название первого столбца
 
-        Cell categoryTop = row.createCell(1);
+        var categoryTop = row.createCell(1);
         categoryTop.setCellValue("Category");// название второго столбца
 
-        Cell nameTop = row.createCell(2);
+        var nameTop = row.createCell(2);
         nameTop.setCellValue("Name");// название третьего столбца
 
-        Cell priceTop = row.createCell(3);
+        var priceTop = row.createCell(3);
         priceTop.setCellValue("Price, BYN");// название четвертого столбца
 
-        Cell discountTop = row.createCell(4);
+        var discountTop = row.createCell(4);
         discountTop.setCellValue("Discount, %");// название пятого столбца
 
-        Cell totalVolumeTop = row.createCell(5);
+        var totalVolumeTop = row.createCell(5);
         totalVolumeTop.setCellValue("Count, kg()");// название шестого столбца
 
-        Cell actualPriceTop = row.createCell(6);
+        var actualPriceTop = row.createCell(6);
         actualPriceTop.setCellValue("Total, BYN");// название седьмого столбца
 
         // добавляем данные из List
-        int i = 1;
+        var i = 1;
         for (Product product : listProduct) {
-            Row rowProduct = sheet.createRow(i);
-            Cell id = rowProduct.createCell(0);
+            var rowProduct = sheet.createRow(i);
+            var id = rowProduct.createCell(0);
             id.setCellValue(product.getId());
 
-            Cell category = rowProduct.createCell(1);
+            var category = rowProduct.createCell(1);
             category.setCellValue(product.getCategory());
 
-            Cell name = rowProduct.createCell(2);
+            var name = rowProduct.createCell(2);
             name.setCellValue(product.getName());
 
-            Cell price = rowProduct.createCell(3);
+            var price = rowProduct.createCell(3);
             price.setCellValue(product.getPrice());
 
-            Cell discount = rowProduct.createCell(4);
+            var discount = rowProduct.createCell(4);
             discount.setCellValue(product.getDiscount());
 
-            Cell totalVolume = rowProduct.createCell(5);
+            var totalVolume = rowProduct.createCell(5);
             totalVolume.setCellValue(product.getTotalVolume());
 
-            Cell actualPrice = rowProduct.createCell(6);
+            var actualPrice = rowProduct.createCell(6);
             actualPrice.setCellValue(product.getActualPrice());
 
             i++;
         }
         // название и путь для нашего файла
-        String filename = "src/main/webapp/WEB-INF/downloads/xls/productlist.xls";
+        var filename = "src/main/webapp/WEB-INF/downloads/xls/productlist.xls";
 
-        try (FileOutputStream out = new FileOutputStream(filename)) {
+        try (var out = new FileOutputStream(filename)) {
             workbook.write(out);
         } catch (IOException file) {
             file.printStackTrace();
@@ -104,8 +102,8 @@ public class ExportToExcelService {
     }
 
     // формирование таблицы excel и добавление данных из List
-    public static List<ProductOfDelete> exportListOfBasket(List<ProductOfDelete> listProductDelete) {
-        HSSFWorkbook workbook = new HSSFWorkbook();
+    public List<ProductOfDelete> exportListOfBasket(List<ProductOfDelete> listProductDelete) {
+
         Sheet sheet = workbook.createSheet("List products"); //название вкладки
         sheet.setColumnWidth(0, 1500); // ширина строк
         sheet.setColumnWidth(1, 6000);
@@ -115,60 +113,60 @@ public class ExportToExcelService {
         sheet.setColumnWidth(5, 3000);
         sheet.setColumnWidth(6, 3000);
         // даем название колонок таблицы
-        Row row = sheet.createRow(0); // первая строка
+        var row = sheet.createRow(0); // первая строка
 
-        Cell idTop = row.createCell(0);
+        var idTop = row.createCell(0);
         idTop.setCellValue("id"); // название первого столбца
 
-        Cell categoryTop = row.createCell(1);
+        var categoryTop = row.createCell(1);
         categoryTop.setCellValue("Category");// название второго столбца
 
-        Cell nameTop = row.createCell(2);
+        var nameTop = row.createCell(2);
         nameTop.setCellValue("Name");// название третьего столбца
 
-        Cell priceTop = row.createCell(3);
+        var priceTop = row.createCell(3);
         priceTop.setCellValue("Price, BYN");// название четвертого столбца
 
-        Cell discountTop = row.createCell(4);
+        var discountTop = row.createCell(4);
         discountTop.setCellValue("Discount, %");// название пятого столбца
 
-        Cell totalVolumeTop = row.createCell(5);
+        var totalVolumeTop = row.createCell(5);
         totalVolumeTop.setCellValue("Count, kg()");// название шестого столбца
 
-        Cell actualPriceTop = row.createCell(6);
+        var actualPriceTop = row.createCell(6);
         actualPriceTop.setCellValue("Total, BYN");// название седьмого столбца
 
         // добавляем данные из List
-        int i = 1;
+        var i = 1;
         for (ProductOfDelete product : listProductDelete) {
-            Row rowProduct = sheet.createRow(i);
-            Cell id = rowProduct.createCell(0);
+            var rowProduct = sheet.createRow(i);
+            var id = rowProduct.createCell(0);
             id.setCellValue(product.getId());
 
-            Cell category = rowProduct.createCell(1);
+            var category = rowProduct.createCell(1);
             category.setCellValue(product.getCategory());
 
-            Cell name = rowProduct.createCell(2);
+            var name = rowProduct.createCell(2);
             name.setCellValue(product.getName());
 
-            Cell price = rowProduct.createCell(3);
+            var price = rowProduct.createCell(3);
             price.setCellValue(product.getPrice());
 
-            Cell discount = rowProduct.createCell(4);
+            var discount = rowProduct.createCell(4);
             discount.setCellValue(product.getDiscount());
 
-            Cell totalVolume = rowProduct.createCell(5);
+            var totalVolume = rowProduct.createCell(5);
             totalVolume.setCellValue(product.getTotalVolume());
 
-            Cell actualPrice = rowProduct.createCell(6);
+            var actualPrice = rowProduct.createCell(6);
             actualPrice.setCellValue(product.getActualPrice());
 
             i++;
         }
         // название и путь для нашего файла
-        String filename = "src/main/webapp/WEB-INF/downloads/xls/productlist.xls";
+        var filename = "src/main/webapp/WEB-INF/downloads/xls/productlist.xls";
 
-        try (FileOutputStream out = new FileOutputStream(filename)) {
+        try (var out = new FileOutputStream(filename)) {
             workbook.write(out);
         } catch (IOException file) {
             file.printStackTrace();
@@ -178,7 +176,6 @@ public class ExportToExcelService {
 
     // формирование таблицы excel из списка покупок
     public void check(List<BuyProduct> listProduct) {
-        HSSFWorkbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet("check"); //название вкладки
         sheet.setColumnWidth(0, 2000); // ширина строк
         sheet.setColumnWidth(1, 5000);
@@ -187,56 +184,56 @@ public class ExportToExcelService {
         sheet.setColumnWidth(4, 4000);
 
         // даем название колонок таблицы
-        Row row = sheet.createRow(0); // первая строка
+        var row = sheet.createRow(0); // первая строка
 
-        Cell idTop = row.createCell(0);
+        var idTop = row.createCell(0);
         idTop.setCellValue("#"); // название первого столбца
 
-        Cell nameTop = row.createCell(1);
+        var nameTop = row.createCell(1);
         nameTop.setCellValue("Name");
 
-        Cell actualPriceTop = row.createCell(2);
+        var actualPriceTop = row.createCell(2);
         actualPriceTop.setCellValue("Price, BYN");// название шестого столбца
 
-        Cell quantityTop = row.createCell(3);
+        var quantityTop = row.createCell(3);
         quantityTop.setCellValue("Count");// название пятого столбца
 
-        Cell totalPriceTop = row.createCell(4);
+        var totalPriceTop = row.createCell(4);
         totalPriceTop.setCellValue("Total, BYN");// название шестого столбца
 
         // добавляем данные из List
-        int i = 1;
+        var i = 1;
         for (BuyProduct product : listProduct) {
-            Row rowProduct = sheet.createRow(i);
-            Cell id = rowProduct.createCell(0);
+            var rowProduct = sheet.createRow(i);
+            var id = rowProduct.createCell(0);
             id.setCellValue(i);
 
-            Cell name = rowProduct.createCell(1);
+            var name = rowProduct.createCell(1);
             name.setCellValue(product.getName());
 
-            Cell actualPrice = rowProduct.createCell(2);
+            var actualPrice = rowProduct.createCell(2);
             actualPrice.setCellValue(product.getActualPrice());
 
-            Cell quantity = rowProduct.createCell(3);
+            var quantity = rowProduct.createCell(3);
             quantity.setCellValue(product.getQuantity());
 
-            Cell totalPrice = rowProduct.createCell(4);
+            var totalPrice = rowProduct.createCell(4);
             totalPrice.setCellValue(product.getActualPrice());
 
             i++;
         }
-        Row rowProduct = sheet.createRow(i);
+        var rowProduct = sheet.createRow(i);
 
-        Cell quantity = rowProduct.createCell(3);
+        var quantity = rowProduct.createCell(3);
         quantity.setCellValue("TOTAL:");
 
-        Cell totalPrice = rowProduct.createCell(4);
+        var totalPrice = rowProduct.createCell(4);
         totalPrice.setCellValue(getProductService.totalPrise());
 
         // название и путь для нашего файла (по умолчанию в корне проекта)
-        String filename = "src/main/webapp/WEB-INF/downloads/xls/check.xls";
+        var filename = "src/main/webapp/WEB-INF/downloads/xls/check.xls";
 
-        try (FileOutputStream out = new FileOutputStream(filename)) {
+        try (var out = new FileOutputStream(filename)) {
             workbook.write(out);
         } catch (IOException e) {
             e.printStackTrace();

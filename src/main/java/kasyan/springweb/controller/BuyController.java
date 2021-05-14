@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.SQLException;
-
 @Controller
 @RequestMapping(value = "/product")
 public class BuyController {
@@ -26,14 +24,14 @@ public class BuyController {
     @GetMapping(value = "/buystarted")
     public ModelAndView buyStarted(){
         deleteProductService.cleanBuyDB();
-        return new ModelAndView("adminpages/buystarted");
+        return new ModelAndView("redirect:/adminpages/buystarted");
 
     }
 
     // получение страницы с формой для добавления продукта
     @GetMapping(value = "/buyproduct")
     public ModelAndView buyProductGet(){
-        ModelAndView modelAndView = new ModelAndView();
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/buyproduct");
         modelAndView.addObject("product", getProductService.findAll());
         return modelAndView;
@@ -43,18 +41,18 @@ public class BuyController {
     @PostMapping(value = "/buyproduct")
     public ModelAndView buyProductPost(@RequestParam(value = "id") int id,
                                        @RequestParam(value = "quantity") double quantity,
-                                       @RequestParam(value = "totalVolume") double totalVolume) throws ProductNotFoundException {
+                                       @RequestParam(value = "totalVolume") double totalVolume){
         if (getProductService.checkingForNumber(quantity, totalVolume)) {
             saveProductService.saveBayProduct(id, quantity);
-            return new ModelAndView("redirect:/product/buyproduct");
+            return new ModelAndView("redirect:/adminpages/buyproduct");
         }
-        return new ModelAndView("redirect:/product/buyproduct");
+        return new ModelAndView("redirect:/adminpages/buyproduct");
     }
 
     // получение страницы с формой для добавления продукта
     @GetMapping(value = "/endbuyproduct")
     public ModelAndView endBuyProductGet(){
-        ModelAndView modelAndView = new ModelAndView();
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/endbuyproduct");
         modelAndView.addObject("product", getProductService.findAllBuyProduct());
         return modelAndView;
@@ -62,8 +60,8 @@ public class BuyController {
 
     // получение страницы с формой для добавления продукта
     @GetMapping(value = "/checkend")
-    public ModelAndView checkend() throws ProductNotFoundException {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView checkend() {
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/checkend");
         exportToExcelService.check(getProductService.findAllBuyProduct());
         updateProductService.endTransaction();
@@ -82,7 +80,7 @@ public class BuyController {
     @GetMapping(value = "/failbuyproduct")
     public ModelAndView failbuyproduct() {
         deleteProductService.cleanBuyDB();
-        return new ModelAndView("adminpages/failbuyproduct");
+        return new ModelAndView("redirect:/adminpages/failbuyproduct");
     }
 
     @Autowired

@@ -33,21 +33,21 @@
         <td></td>
         <td></td>
     </tr>
-    <%@include file="sortelement.jsp"%>
+    <%@include file="sortelement.jsp" %>
     <c:forEach var="product" items="${product}">
         <tr>
             <td colspan="2" align="center"><c:out value="${product.id}"/></td>
             <td colspan="2" align="center"><c:out value="${product.category}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getName()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getPrice()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getDiscount()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getActualPrice()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getTotalVolume()}"/></td>
-            <td><a href="${pageContext.request.contextPath}/product/deleteproduct?id=${product.getId()}" title="Удалить"
+            <td colspan="2" align="center"><c:out value="${product.name}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.price}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.discount}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.actualPrice}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.totalVolume}"/></td>
+            <td><a href="${pageContext.request.contextPath}/product/deleteproduct?id=${product.id}" title="Удалить"
                    onclick="return confirm('Удалить продукт <${product.getName()}> категории <${product.getCategory()}>?')"><input
                     type="image" src="${pageContext.request.contextPath}/download/xls/del.png"
                     width="18" height="18" alt="Очистить корзину"></a></td>
-            <td><a href="${pageContext.request.contextPath}/product/editproduct?id=${product.getId()}" title="Изменить"
+            <td><a href="${pageContext.request.contextPath}/product/editproduct?id=${product.id}" title="Изменить"
                    onclick="return confirm('Изменить данные <${product.getName()}> категории <${product.getCategory()}>?')"><input
                     type="image" src="${pageContext.request.contextPath}/download/xls/edit.jpg"
                     width="18" height="18" alt="Очистить корзину"></a></td>

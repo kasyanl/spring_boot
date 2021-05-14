@@ -8,27 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.SQLException;
-
 @Controller
 @RequestMapping(value = "/")
 public class IndexController {
 
-//
-//    private static final String PATH = "/error";
-//
-//    @RequestMapping(value = PATH)
-//    public String error() {
-//        return "Error handling";
-//    }
-//
-//    @Override
-//    public String getErrorPath() {
-//        return PATH;
-//    }
-
-
     private GetProductService getProductService;
+    private ExportToExcelService exportToExcelService;
 
     //получение стартовой страницы
     @GetMapping
@@ -63,32 +48,37 @@ public class IndexController {
     // экспорт данных из корзины в excel
     @GetMapping(value = "/exportexceldel")
     public ModelAndView exportExcelDel() {
-        ModelAndView modelAndView = new ModelAndView();
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/exportexceldel");
-        modelAndView.addObject("product", ExportToExcelService.exportListOfBasket(getProductService.findAllDeleted()));
+        modelAndView.addObject("product", exportToExcelService.exportListOfBasket(getProductService.findAllDeleted()));
         return modelAndView;
     }
 
     // экспорт данных  в excel основной БД для юзера
     @GetMapping(value = "/exportexcel")
-    public ModelAndView exportExcel() throws SQLException {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView exportExcel() {
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/exportexcel");
-        modelAndView.addObject("product", ExportToExcelService.exportAllList(getProductService.findAll()));
+        modelAndView.addObject("product", exportToExcelService.exportAllList(getProductService.findAll()));
         return modelAndView;
     }
 
     // экспорт данных  в excel основной БД для гостя
     @GetMapping(value = "/exportexcelguest")
-    public ModelAndView exportExcelGuest() throws SQLException {
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView exportExcelGuest() {
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/exportexcelguest");
-        modelAndView.addObject("product", ExportToExcelService.exportAllList(getProductService.findAll()));
+        modelAndView.addObject("product", exportToExcelService.exportAllList(getProductService.findAll()));
         return modelAndView;
     }
 
     @Autowired
     public void setGetProductService(GetProductService getProductService) {
         this.getProductService = getProductService;
+    }
+
+    @Autowired
+    public void setExportToExcelService(ExportToExcelService exportToExcelService) {
+        this.exportToExcelService = exportToExcelService;
     }
 }
