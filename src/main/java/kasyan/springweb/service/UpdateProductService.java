@@ -2,9 +2,7 @@ package kasyan.springweb.service;
 
 import kasyan.springweb.bean.BuyProduct;
 import kasyan.springweb.bean.Product;
-import kasyan.springweb.exceptions.ProductNotFoundException;
-import kasyan.springweb.util.HibernateSessionFactory;
-import org.hibernate.Session;
+import kasyan.springweb.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,24 +12,13 @@ import java.util.List;
 public class UpdateProductService {
 
     private GetProductService getProductService;
+    private ProductRepository productRepository;
 
     // отправляем запрос в БД на обновление Product по ID
     public void update(int id, String category, String name, double price, double discount, double totalVolume) {
         double actualPrice = SaveProductService.calculating(price, discount);
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.createQuery("UPDATE Product SET category= :category, name=:name, price=:price," +
-                " discount=:discount, actualPrice=:actualPrice, totalVolume=:totalVolume WHERE id=:id")
-                .setParameter("category", category)
-                .setParameter("name", name)
-                .setParameter("price", price)
-                .setParameter("discount", discount)
-                .setParameter("actualPrice", actualPrice)
-                .setParameter("totalVolume", totalVolume)
-                .setParameter("id", id)
-                .executeUpdate();
-        session.getTransaction().commit();
-        session.close();
+
+        productRepository.update(category, name, price, discount, actualPrice, totalVolume, id);
     }
 
     // установка скидки для одной категории
@@ -44,26 +31,23 @@ public class UpdateProductService {
     }
 
     // сохранение данных после изменения
-    public void endTransaction() throws ProductNotFoundException {
+    public void endTransaction() {
         List<BuyProduct> newListBuy = getProductService.findAllBuyProduct();
-//        List<Product> newListProduct = getProductService.findAll();
 
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        session.beginTransaction();
         for (BuyProduct buyProduct : newListBuy) {
             Product product = getProductService.findById(buyProduct.getId());
             double totalVolume = product.getTotalVolume() - buyProduct.getQuantity();
-            session.createQuery("UPDATE Product SET totalVolume=:totalVolume WHERE id=:id")
-                    .setParameter("totalVolume", totalVolume)
-                    .setParameter("id", buyProduct.getId())
-                    .executeUpdate();
+            update(product.getId(), product.getCategory(), product.getName(), product.getPrice(), product.getDiscount(), totalVolume);
         }
-        session.getTransaction().commit();
-        session.close();
     }
 
     @Autowired
     public void setGetProductService(GetProductService getProductService) {
         this.getProductService = getProductService;
+    }
+
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 }

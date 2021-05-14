@@ -1,6 +1,7 @@
 package kasyan.springweb.repository;
 
 import kasyan.springweb.bean.Product;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,13 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
     List<Product> findAll();
     Product findById(int id);
     List<Product> findByCategory(String category);
+
+    @Modifying
+    @Query("UPDATE Product SET category= ?1, name= ?2, price=?3," +
+            " discount=?4, actualPrice=?5, totalVolume=?6 WHERE id=?7")
+    void update(String category, String name, double price,
+                double discount, double actualPrice, double totalVolume, Integer id);
+
 
     @Override
     void deleteById(Integer id);
