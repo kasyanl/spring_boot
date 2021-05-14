@@ -14,14 +14,13 @@
     <name>springweb</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-            <java.version>11</java.version>
-            <javax.servlet>4.0.1</javax.servlet>
-            <mysql.version>8.0.19</mysql.version>
-            <apache.poi>5.0.0</apache.poi>
-            <apache.poi-ooxml>5.0.0</apache.poi-ooxml>
-            <jstl>1.2</jstl>
-            <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
         <java.version>11</java.version>
+        <javax.servlet>4.0.1</javax.servlet>
+        <mysql.version>8.0.19</mysql.version>
+        <apache.poi>5.0.0</apache.poi>
+        <apache.poi-ooxml>5.0.0</apache.poi-ooxml>
+        <jstl>1.2</jstl>
+        <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
     </properties>
     <dependencies>
         <dependency>
@@ -77,8 +76,25 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
