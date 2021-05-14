@@ -38,6 +38,10 @@ public class GetProductService {
        return productRepository.findById(id);
     }
 
+    public ProductOfDelete findProductOfBascketByID(int id){
+        return productOfDeleteRepository.findById(id);
+    }
+
     // ищем все Products одной категории и отправляем в БД соответствующий запрос
     public List<Product> fineCategoryForRead(String category) {
         return productRepository.findByCategory(category);

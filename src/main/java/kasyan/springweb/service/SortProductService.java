@@ -1,124 +1,75 @@
 package kasyan.springweb.service;
 
 import kasyan.springweb.bean.Product;
-import kasyan.springweb.util.HibernateSessionFactory;
-import org.hibernate.Session;
+import kasyan.springweb.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SortProductService extends GetProductService {
+public class SortProductService {
+
+    private ProductRepository productRepository;
 
     public List<Product> sortById() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.id")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortById();
     }
 
     public List<Product> sortByIdReverse() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.id DESC")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByIdReverse();
     }
 
     public List<Product> sortByCategory() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.category")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByCategory();
     }
 
     public List<Product> sortByCategoryReverse() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.category DESC")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByCategoryReverse();
     }
 
     public List<Product> sortByName() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.name")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByName();
     }
 
     public List<Product> sortByNameReverse() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.name DESC")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByNameReverse();
     }
 
     public List<Product> sortByPrice() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.price")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByPrice();
     }
 
     public List<Product> sortByPriceReverse() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.price DESC")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByPriceReverse();
     }
 
     public List<Product> sortByDiscount() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.discount")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByDiscount();
     }
 
     public List<Product> sortByDiscountReverse() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.discount DESC")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByDiscountReverse();
     }
 
     public List<Product> sortByActualPrice() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.actualPrice")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByActualPrice();
     }
 
     public List<Product> sortByActualPriceReverse() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.actualPrice DESC")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByActualPriceReverse();
     }
 
     public List<Product> sortByTotalVolume() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.totalVolume")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByTotalVolume();
     }
 
     public List<Product> sortByTotalVolumeReverse() {
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<Product> product = session.createQuery("FROM Product P ORDER BY P.totalVolume DESC")
-                .getResultList();
-        session.close();
-        return product;
+        return productRepository.sortByTotalVolumeReverse();
+    }
+
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 }

@@ -3,10 +3,9 @@ package kasyan.springweb.service;
 import kasyan.springweb.bean.BuyProduct;
 import kasyan.springweb.bean.Product;
 import kasyan.springweb.bean.ProductOfDelete;
-import kasyan.springweb.exceptions.ProductNotFoundException;
+import kasyan.springweb.repository.BuyProductRepository;
 import kasyan.springweb.repository.ProductOfDeleteRepository;
-import kasyan.springweb.util.HibernateSessionFactory;
-import org.hibernate.Session;
+import kasyan.springweb.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +17,8 @@ public class SaveProductService {
     private GetProductService getProductService;
     private SortProductService sortProductService;
     private ProductOfDeleteRepository productOfDeleteRepository;
+    private ProductRepository productRepository;
+    private BuyProductRepository buyProductRepository;
 
     /* отправка запроса на добавление новой записи в БД Product
    и автоматическим расчетом цены с учетом скидки */
@@ -25,9 +26,6 @@ public class SaveProductService {
         List<Product> newList = getProductService.findAll();
         int id = createId(newList);
         double actualPrice = calculating(price, discount);
-
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        session.beginTransaction();
 
         Product product = new Product();
 
@@ -38,11 +36,8 @@ public class SaveProductService {
         product.setDiscount(discount);
         product.setActualPrice(actualPrice);
         product.setTotalVolume(totalVolume);
-        session.save(product);
 
-        session.getTransaction().commit();
-
-        session.close();
+        productRepository.save(product);
     }
 
     public void saveProductOfDelete(int id)  {
@@ -61,22 +56,18 @@ public class SaveProductService {
     }
 
     // выбор продукта для покупки (передаем количество или вес продукта), добавляем в отдельную БД
-    public void saveBayProduct(int id, double quantity) throws ProductNotFoundException {
+    public void saveBayProduct(int id, double quantity) {
         Product product = getProductService.findById(id);
         BuyProduct buyProduct = new BuyProduct();
         double totalPrice = product.getActualPrice() * quantity;
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        session.beginTransaction();
 
         buyProduct.setId(product.getId());
         buyProduct.setName(product.getName());
         buyProduct.setActualPrice(product.getActualPrice());
         buyProduct.setQuantity(quantity);
         buyProduct.setTotalPrice(totalPrice);
-        session.save(buyProduct);
 
-        session.getTransaction().commit();
-        session.close();
+        buyProductRepository.save(buyProduct);
     }
 
     // метод для расчета стоимости с учетом скидки
@@ -111,5 +102,15 @@ public class SaveProductService {
     @Autowired
     public void setProductOfDeleteRepository(ProductOfDeleteRepository productOfDeleteRepository) {
         this.productOfDeleteRepository = productOfDeleteRepository;
+    }
+
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    @Autowired
+    public void setBuyProductRepository(BuyProductRepository buyProductRepository) {
+        this.buyProductRepository = buyProductRepository;
     }
 }

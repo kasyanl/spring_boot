@@ -16,7 +16,6 @@ public class DeleteProductService {
 
     //находим Product по его ID и отправка запроса в БД для удаления и одновременно добавления в "корзину" (и добавляем дату удаления)
     public void deleteProduct(int id)  {
-
         saveProductService.saveProductOfDelete(id);
         productRepository.deleteById(id);
     }

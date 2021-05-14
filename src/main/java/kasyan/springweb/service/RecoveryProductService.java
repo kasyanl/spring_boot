@@ -1,57 +1,46 @@
 package kasyan.springweb.service;
 
 import kasyan.springweb.bean.ProductOfDelete;
-import kasyan.springweb.util.HibernateSessionFactory;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RecoveryProductService{
+public class RecoveryProductService {
 
     private GetProductService getProductService;
     private SaveProductService saveProductService;
     private DeleteProductService deleteProductService;
 
     // восстановление всех записей из корзины
-    public void recoveryAllProduct(){
+    public void recoveryAllProduct() {
         List<ProductOfDelete> newList = getProductService.findAllDeleted();
-        for (ProductOfDelete product : newList) {
-            saveProductService.saveProduct(product.getCategory(), product.getName(),
-                    product.getPrice(), product.getDiscount(), product.getTotalVolume());
+        for (ProductOfDelete productOfDelete : newList) {
+            saveProductService.saveProduct(productOfDelete.getCategory(), productOfDelete.getName(),
+                    productOfDelete.getPrice(), productOfDelete.getDiscount(), productOfDelete.getTotalVolume());
         }
         deleteProductService.cleanBasket();
     }
 
     //восстанавливаем удаленный ранее Product по его ID и отправка запроса в БД
-    public void recovered(int id){
-        List<ProductOfDelete> newList = getProductService.findAllDeleted();
-        Session session = HibernateSessionFactory.getSessionFactory().openSession();
-        for (ProductOfDelete product : newList) {
-            if (product.getId() == id) {
-                saveProductService.saveProduct(product.getCategory(), product.getName(), product.getPrice(), product.getDiscount(), product.getTotalVolume());
-
-                // добавление в основную БД
-                session.createQuery("INSERT INTO Product (id, category, name, price, discount, actualPrice, totalVolume, data)" +
-                        "SELECT p.id, p.category, p.name, p.price, p.discount, p.actualPrice, p.totalVolume, p.data FROM ProductOfDelete p " +
-                        "WHERE id=:id").setParameter("id", id);
-                session.createQuery("DELETE FROM ProductOfDelete WHERE id=:id").setParameter("id", id);
-                break;
-            }
-        }
-        session.close();
+    public void recovered(int id) {
+        ProductOfDelete productOfDelete = getProductService.findProductOfBascketByID(id);
+        saveProductService.saveProduct(productOfDelete.getCategory(), productOfDelete.getName(), productOfDelete.getPrice(),
+                productOfDelete.getDiscount(), productOfDelete.getTotalVolume());
+        deleteProductService.deleteOfBasket(id);
     }
 
     @Autowired
     public void setGetProductService(GetProductService getProductService) {
         this.getProductService = getProductService;
     }
+
     @Autowired
     public void setSaveProductService(SaveProductService saveProductService) {
         this.saveProductService = saveProductService;
     }
+
     @Autowired
     public void setDeleteProductService(DeleteProductService deleteProductService) {
         this.deleteProductService = deleteProductService;
