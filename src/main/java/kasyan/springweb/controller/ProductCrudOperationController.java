@@ -4,6 +4,7 @@ import kasyan.springweb.exceptions.ProductNotFoundException;
 import kasyan.springweb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class ProductCrudOperationController {
 
     // получение всего списка продуктов из основной БД
     @GetMapping(value = "/allproduct")
-    public ModelAndView findAll(){
+    public ModelAndView findAll() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/allproduct");
         modelAndView.addObject("product", getProductService.findAll());
@@ -130,7 +131,10 @@ public class ProductCrudOperationController {
                              @RequestParam(value = "name") String name,
                              @RequestParam(value = "price") double price,
                              @RequestParam(value = "discount") double discount,
-                             @RequestParam(value = "totalVolume") double totalVolume) {
+                             @RequestParam(value = "totalVolume") double totalVolume, Model model) {
+        model.addAttribute("id", id).addAttribute("category", category)
+                .addAttribute("name", name).addAttribute("price", price)
+                .addAttribute("discount", discount).addAttribute("totalVolume", totalVolume);
         updateProductService.update(id, category, name, price, discount, totalVolume);
         return new ModelAndView("redirect:/product/allproduct");
     }

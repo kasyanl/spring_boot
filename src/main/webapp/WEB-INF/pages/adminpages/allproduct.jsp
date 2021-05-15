@@ -44,11 +44,11 @@
             <td colspan="2" align="center"><c:out value="${product.actualPrice}"/></td>
             <td colspan="2" align="center"><c:out value="${product.totalVolume}"/></td>
             <td><a href="${pageContext.request.contextPath}/product/deleteproduct?id=${product.id}" title="Удалить"
-                   onclick="return confirm('Удалить продукт <${product.getName()}> категории <${product.getCategory()}>?')"><input
+                   onclick="return confirm('Удалить продукт <${product.name}> категории <${product.category}>?')"><input
                     type="image" src="${pageContext.request.contextPath}/download/xls/del.png"
                     width="18" height="18" alt="Очистить корзину"></a></td>
             <td><a href="${pageContext.request.contextPath}/product/editproduct?id=${product.id}" title="Изменить"
-                   onclick="return confirm('Изменить данные <${product.getName()}> категории <${product.getCategory()}>?')"><input
+                   onclick="return confirm('Изменить данные <${product.name}> категории <${product.category}>?')"><input
                     type="image" src="${pageContext.request.contextPath}/download/xls/edit.jpg"
                     width="18" height="18" alt="Очистить корзину"></a></td>
         </tr>

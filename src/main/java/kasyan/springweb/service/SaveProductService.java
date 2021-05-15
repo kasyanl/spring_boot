@@ -8,6 +8,7 @@ import kasyan.springweb.repository.ProductOfDeleteRepository;
 import kasyan.springweb.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class SaveProductService {
 
     /* отправка запроса на добавление новой записи в БД Product
    и автоматическим расчетом цены с учетом скидки */
+    @Transactional
     public void saveProduct(String category, String name, double price, double discount, double totalVolume) {
         List<Product> newList = getProductService.findAll();
         int id = createId(newList);
@@ -40,6 +42,7 @@ public class SaveProductService {
         productRepository.save(product);
     }
 
+    @Transactional
     public void saveProductOfDelete(int id)  {
 
         var productOfDelete = new ProductOfDelete();
@@ -56,6 +59,7 @@ public class SaveProductService {
     }
 
     // выбор продукта для покупки (передаем количество или вес продукта), добавляем в отдельную БД
+    @Transactional
     public void saveBayProduct(int id, double quantity) {
         var product = getProductService.findById(id);
         var buyProduct = new BuyProduct();

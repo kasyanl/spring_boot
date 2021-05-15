@@ -1,9 +1,9 @@
 package kasyan.springweb.controller;
 
-import kasyan.springweb.exceptions.ProductNotFoundException;
 import kasyan.springweb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,16 +22,16 @@ public class BuyController {
 
     // получение страницы с формой для добавления продукта
     @GetMapping(value = "/buystarted")
-    public ModelAndView buyStarted(){
+    public String buyStarted() {
+//        var modelAndView = new ModelAndView();
+//        modelAndView.setViewName("adminpages/buystarted");
         deleteProductService.cleanBuyDB();
-        return new ModelAndView("redirect:/adminpages/buystarted");
-
+        return "adminpages/buystarted";
     }
 
-    // получение страницы с формой для добавления продукта
     @GetMapping(value = "/buyproduct")
-    public ModelAndView buyProductGet(){
-        var modelAndView = new ModelAndView();
+    public ModelAndView buyProductGet() {
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/buyproduct");
         modelAndView.addObject("product", getProductService.findAll());
         return modelAndView;
@@ -41,17 +41,20 @@ public class BuyController {
     @PostMapping(value = "/buyproduct")
     public ModelAndView buyProductPost(@RequestParam(value = "id") int id,
                                        @RequestParam(value = "quantity") double quantity,
-                                       @RequestParam(value = "totalVolume") double totalVolume){
+                                       @RequestParam(value = "totalVolume") double totalVolume,
+                                       Model model) {
+        model.addAttribute("id", id).addAttribute("quantity", quantity).addAttribute("totalVolume", totalVolume);
+
         if (getProductService.checkingForNumber(quantity, totalVolume)) {
             saveProductService.saveBayProduct(id, quantity);
-            return new ModelAndView("redirect:/adminpages/buyproduct");
+            return new ModelAndView("redirect:/product/buyproduct");
         }
-        return new ModelAndView("redirect:/adminpages/buyproduct");
+        return new ModelAndView("redirect:/product/buyproduct");
     }
 
     // получение страницы с формой для добавления продукта
     @GetMapping(value = "/endbuyproduct")
-    public ModelAndView endBuyProductGet(){
+    public ModelAndView endBuyProductGet() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/endbuyproduct");
         modelAndView.addObject("product", getProductService.findAllBuyProduct());
@@ -71,7 +74,7 @@ public class BuyController {
 
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/deleteproductbuy")
-    public ModelAndView deleteproduct(@RequestParam(value = "id") int id){
+    public ModelAndView deleteproduct(@RequestParam(value = "id") int id) {
         deleteProductService.deleteBuy(id);
         return new ModelAndView("redirect:/product/endbuyproduct");
     }
@@ -84,7 +87,7 @@ public class BuyController {
     }
 
     @Autowired
-    public void setExportToExcel(ExportToExcelService exportToExcelService) {
+    public void setExportToExcelService(ExportToExcelService exportToExcelService) {
         this.exportToExcelService = exportToExcelService;
     }
 

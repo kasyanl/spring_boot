@@ -8,6 +8,7 @@ import kasyan.springweb.repository.ProductOfDeleteRepository;
 import kasyan.springweb.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,43 +20,52 @@ public class GetProductService {
     private BuyProductRepository buyProductRepository;
 
     //отправка запроса на получение всех продуктов из основной БД
+    @Transactional
     public List<Product> findAll() {
         return productRepository.findAll();
     }
 
     //отправка запроса на получение всех ранее удаленных продуктов из основной БД
+    @Transactional
     public List<ProductOfDelete> findAllDeleted() {
         return productOfDeleteRepository.findAll();
     }
 
     //отправка запроса на получение всех ранее удаленных продуктов из основной БД
+    @Transactional
     public List<BuyProduct> findAllBuyProduct() {
         return buyProductRepository.findAll();
     }
 
     //находим конкретный Product по ID
+    @Transactional
     public Product findById(int id) {
-       return productRepository.findById(id);
+        return productRepository.findById(id);
     }
 
-    public ProductOfDelete findProductOfBascketByID(int id){
+    @Transactional
+    public ProductOfDelete findProductOfBascketByID(int id) {
         return productOfDeleteRepository.findById(id);
     }
 
     // ищем все Products одной категории и отправляем в БД соответствующий запрос
+    @Transactional
     public List<Product> fineCategoryForRead(String category) {
         return productRepository.findByCategory(category);
     }
 
+
     // расчет общей суммы покупок
-    public double totalPrise() {
-        List<BuyProduct> newList = findAllBuyProduct();
-        double count = 0;
-        for (BuyProduct product : newList) {
-            count += product.getTotalPrice();
+        public  double totalPrise() {
+//            List<BuyProduct> newList = findAllBuyProduct();
+            double count = 0;
+            if(!findAllBuyProduct().isEmpty()){
+                for (BuyProduct product : findAllBuyProduct()) {
+                    count += product.getTotalPrice();
+                }
+            }
+            return count;
         }
-        return count;
-    }
 
     // проверка, чтобы не ввести больше количество,
     public boolean checkingForNumber(double quantity, double totalVolume) {

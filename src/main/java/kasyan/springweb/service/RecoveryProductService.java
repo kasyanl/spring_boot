@@ -3,6 +3,7 @@ package kasyan.springweb.service;
 import kasyan.springweb.bean.ProductOfDelete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class RecoveryProductService {
     private DeleteProductService deleteProductService;
 
     // восстановление всех записей из корзины
+    @Transactional
     public void recoveryAllProduct() {
         List<ProductOfDelete> newList = getProductService.findAllDeleted();
         for (ProductOfDelete productOfDelete : newList) {
@@ -24,6 +26,7 @@ public class RecoveryProductService {
     }
 
     //восстанавливаем удаленный ранее Product по его ID и отправка запроса в БД
+    @Transactional
     public void recovered(int id) {
         var productOfDelete = getProductService.findProductOfBascketByID(id);
         saveProductService.saveProduct(productOfDelete.getCategory(), productOfDelete.getName(), productOfDelete.getPrice(),

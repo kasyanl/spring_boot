@@ -23,7 +23,7 @@ public class PersonService{
 
     // отправка запроса на получение всех пользователей их БД
     public List<Person> findAllPerson(){
-        return personRepository.findAll();
+        return (List<Person>) personRepository.findAll();
     }
 
     @Autowired

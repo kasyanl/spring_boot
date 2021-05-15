@@ -1,10 +1,10 @@
 <%@ page import="kasyan.springweb.service.GetProductService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
-    GetProductService getProductService = new GetProductService();
-    double totalPrise= getProductService.totalPrise();
-%>
+<%--<%--%>
+<%--    GetProductService getProductService = new GetProductService();--%>
+<%--    double totalPrise= getProductService.totalPrise();--%>
+<%--%>--%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -37,13 +37,13 @@
 
     <c:forEach var="product" items="${product}">
         <tr>
-            <td align="center"><c:out value="${product.getId()}"/></td>
-            <td align="center"><c:out value="${product.getName()}"/></td>
-            <td align="center"><c:out value="${product.getActualPrice()}"/></td>
-            <td align="center"><c:out value="${product.getQuantity()}"/></td>
-            <td align="center"><c:out value="${product.getTotalPrice()}"/></td>
-            <td><a href="${pageContext.request.contextPath}/product/deleteproductbuy?id=${product.getId()}" title="Удалить"
-                   onclick="return confirm('Удалить продукт <${product.getName()}>?')"><input
+            <td align="center"><c:out value="${product.id}"/></td>
+            <td align="center"><c:out value="${product.name}"/></td>
+            <td align="center"><c:out value="${product.actualPrice}"/></td>
+            <td align="center"><c:out value="${product.quantity}"/></td>
+            <td align="center"><c:out value="${product.totalPrice}"/></td>
+            <td><a href="${pageContext.request.contextPath}/product/deleteproductbuy?id=${product.id}" title="Удалить"
+                   onclick="return confirm('Удалить продукт <${product.name}>?')"><input
                     type="image" src="${pageContext.request.contextPath}/download/xls/del.png"
                     width="18" height="18" alt="Очистить корзину"></a></td>
             </td>
@@ -58,7 +58,7 @@
         <th align="center"><b></b></th>
         <th width="100" align="center"><b></b></th>
         <th>Итого:</th>
-        <th><b><%=totalPrise%></b></th>
+<%--        <th><b><%=totalPrise%></b></th>--%>
         <th><b> BYN </b></th>
     </tr>
 </table>

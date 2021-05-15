@@ -14,15 +14,23 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "productofdelete")
 public class ProductOfDelete {
     @Id
     private Integer id;
+    @Column(name = "category")
     private String category;
+    @Column(name = "name")
     private String name;
+    @Column(name = "price")
     private double price;
+    @Column(name = "discount")
     private double discount;
+    @Column(name = "actualPrice")
     private double actualPrice;
+    @Column(name = "totalVolume")
     private double totalVolume;
+    @Column(name = "data")
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date data;

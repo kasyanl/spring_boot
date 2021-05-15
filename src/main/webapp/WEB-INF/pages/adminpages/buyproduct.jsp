@@ -1,10 +1,10 @@
 <%@ page import="kasyan.springweb.service.GetProductService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    GetProductService getProductService = new GetProductService();
-    double totalPrise = getProductService.totalPrise();
-%>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%--<%--%>
+<%--    GetProductService getProductService = new GetProductService();--%>
+<%--    double totalPrise = getProductService.totalPrise();--%>
+<%--%>--%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -37,25 +37,25 @@
         <td>Выбор количества товара</td>
 
     </tr>
-    <%@include file="sortelement.jsp"%>
+    <%@include file="sortelement.jsp" %>
     <c:forEach var="product" items="${product}">
         <tr>
             <td colspan="2" align="center"><c:out value="${product.id}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getCategory()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getName()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getPrice()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getDiscount()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getActualPrice()}"/></td>
-            <td colspan="2" align="center"><c:out value="${product.getTotalVolume()}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.category}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.name}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.price}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.discount}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.actualPrice}"/></td>
+            <td colspan="2" align="center"><c:out value="${product.totalVolume}"/></td>
             <td>
-                <form action="${pageContext.request.contextPath}/product/buyproduct?id=${product.getId()}&totalVolume=${product.getTotalVolume()}"
-                      title="добавить"
-                      method="post"><label><input size="10" name="quantity" placeholder="...а, кг(шт)"
-                                                  type="text"></label> <input type="image"
-                                                                              src="${pageContext.request.contextPath}/download/xls/add.png"
-                                                                              width="20" height="20"
-                                                                              alt="Добавить новый продукт"
-                                                                              value="добавить">
+                <form action="${pageContext.request.contextPath}/product/buyproduct?id=${product.id}&totalVolume=${product.totalVolume}"
+                      title="добавить" method="post">
+                    <label><input size="10" name="quantity" placeholder="...а, кг(шт)" type="text"></label>
+                    <input type="image"
+                           src="${pageContext.request.contextPath}/download/xls/add.png"
+                           width="20" height="20"
+                           alt="Добавить новый продукт"
+                           value="добавить">
                 </form>
             </td>
         </tr>
@@ -70,8 +70,7 @@
         <th colspan="2"></th>
         <th colspan="2"></th>
         <th colspan="2">Итого:</th>
-        <th colspan="2"><b><%=totalPrise%>
-        </b></th>
+<%--        <th colspan="2"><b><%=totalPrise%></b></th>--%>
         <th colspan="2"><b> BYN </b></th>
         <th>
             <a href="${pageContext.request.contextPath}/product/endbuyproduct" title="Оформить покупку">

@@ -1,25 +1,24 @@
 package kasyan.springweb.repository;
 
 import kasyan.springweb.bean.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Integer> {
-    List<Product> findAll();
+public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Product findById(int id);
 
     List<Product> findByCategory(String category);
 
     @Modifying
-    @Query("UPDATE Product SET category=:category, name=:name, price=:price," +
-            " discount=:discount, actualPrice=:actualPrice, totalVolume=:totalVolume WHERE id=:id")
+    @Query("update Product p set p.category=:category, p.name=:name, p.price=:price," +
+            " p.discount=:discount, p.actualPrice=:actualPrice, p.totalVolume=:totalVolume where p.id=:id")
     void update(@Param(value = "category") String category, @Param(value = "name") String name,
                 @Param(value = "price") double price, @Param(value = "discount") double discount,
                 @Param(value = "actualPrice") double actualPrice, @Param(value = "totalVolume") double totalVolume,

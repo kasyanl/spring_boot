@@ -1,14 +1,12 @@
 package kasyan.springweb.repository;
 
 import kasyan.springweb.bean.ProductOfDelete;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface ProductOfDeleteRepository extends CrudRepository<ProductOfDelete, Integer> {
-    List<ProductOfDelete> findAll();
+public interface ProductOfDeleteRepository extends JpaRepository<ProductOfDelete, Integer> {
+
     ProductOfDelete findById(int id);
 
     @Override

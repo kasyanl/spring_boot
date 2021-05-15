@@ -5,8 +5,8 @@ CREATE TABLE product
     name        VARCHAR(255)            NOT NULL,
     price       DOUBLE(10, 3) DEFAULT 0 NOT NULL,
     discount    DOUBLE(10, 3) DEFAULT 0 NOT NULL,
-    totalVolume DOUBLE(10, 3) DEFAULT 0 NOT NULL,
-    actualPrice DOUBLE(10, 3) DEFAULT 0 NOT NULL,
+    total_volume DOUBLE(10, 3) DEFAULT 0 NOT NULL,
+    actual_price DOUBLE(10, 3) DEFAULT 0 NOT NULL,
     data        DATETIME                NOT NULL
 );
 
@@ -24,8 +24,8 @@ CREATE TABLE productOfDelete
     name        VARCHAR(255)            NOT NULL,
     price       DOUBLE(10, 3) DEFAULT 0 NOT NULL,
     discount    DOUBLE(10, 3) DEFAULT 0 NOT NULL,
-    actualPrice DOUBLE(10, 3) DEFAULT 0 NOT NULL,
-    totalVolume DOUBLE(10, 3) DEFAULT 0 NOT NULL,
+    actual_price DOUBLE(10, 3) DEFAULT 0 NOT NULL,
+    total_volume DOUBLE(10, 3) DEFAULT 0 NOT NULL,
     data        DATETIME                NOT NULL
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE buyproduct
 (
     id          INTEGER,
     name        VARCHAR(255)            NOT NULL,
-    actualPrice DOUBLE(10, 3) DEFAULT 0 NOT NULL,
+    actual_price DOUBLE(10, 3) DEFAULT 0 NOT NULL,
     quantity    DOUBLE(10, 3) DEFAULT 0 NOT NULL,
-    totalPrice  DOUBLE(10, 3) DEFAULT 0 NOT NULL
+    total_price  DOUBLE(10, 3) DEFAULT 0 NOT NULL
 )

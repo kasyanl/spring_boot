@@ -30,10 +30,10 @@
                 <input type="image" src="${pageContext.request.contextPath}/download/xls/del.png"
                        width="100" height="100" alt="Очистить корзину" value="Очистить корзину"></a></th>
         </th>
-        <th>
-            <a href="${pageContext.request.contextPath}/exportexceldel" title="Экспортировать в excel">
-                <input type="image" src="${pageContext.request.contextPath}/download/xls/excel.png"
-                       width="100" height="100" alt="Экспорт в Excel файл" value="Экспорт в Excel файл"></a></th>
+<%--        <th>--%>
+<%--            <a href="${pageContext.request.contextPath}/exportexceldel" title="Экспортировать в excel">--%>
+<%--                <input type="image" src="${pageContext.request.contextPath}/download/xls/excel.png"--%>
+<%--                       width="100" height="100" alt="Экспорт в Excel файл" value="Экспорт в Excel файл"></a></th>--%>
     </tr>
 </table>
 <br>

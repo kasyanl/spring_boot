@@ -1,4 +1,4 @@
-INSERT INTO product (id, category, name, price, discount, totalVolume, actualPrice, data)
+INSERT INTO product (id, category, name, price, discount, total_volume, actual_price, data)
 VALUES (0, 'FRUITS', 'Apple', 10.0, 50.0, 53.6, 5.0, '2021-05-04 16:43:16'),
        (1, 'FRUITS', 'Orange', 12.10, 10.0, 25.6, 10.89, '2021-05-04 16:43:16'),
        (2, 'FRUITS', 'Banana', 9.50, 20.0, 15.9, 7.6, '2021-05-04 16:43:16'),
