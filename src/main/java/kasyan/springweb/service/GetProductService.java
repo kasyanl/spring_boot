@@ -6,6 +6,7 @@ import kasyan.springweb.bean.ProductOfDelete;
 import kasyan.springweb.repository.BuyProductRepository;
 import kasyan.springweb.repository.ProductOfDeleteRepository;
 import kasyan.springweb.repository.ProductRepository;
+import kasyan.springweb.util.HibernateSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,16 +57,18 @@ public class GetProductService {
 
 
     // расчет общей суммы покупок
-        public  double totalPrise() {
-//            List<BuyProduct> newList = findAllBuyProduct();
-            double count = 0;
-            if(!findAllBuyProduct().isEmpty()){
-                for (BuyProduct product : findAllBuyProduct()) {
-                    count += product.getTotalPrice();
-                }
+    public double totalPrise() {
+        var session = HibernateSessionFactory.getSessionFactory().openSession();
+        List<BuyProduct> products = session.createQuery("FROM BuyProduct").getResultList();
+        session.close();
+        double count = 0;
+        if (!products.isEmpty()) {
+            for (BuyProduct product : products) {
+                count += product.getTotalPrice();
             }
-            return count;
         }
+        return count;
+    }
 
     // проверка, чтобы не ввести больше количество,
     public boolean checkingForNumber(double quantity, double totalVolume) {
@@ -73,6 +76,7 @@ public class GetProductService {
     }
 
     // проверка, пуста ли корзина
+    @Transactional
     public boolean basketIsEmpty() {
         List<ProductOfDelete> newList = findAllDeleted();
         return newList.isEmpty();

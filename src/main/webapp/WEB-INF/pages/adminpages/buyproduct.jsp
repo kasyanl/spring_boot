@@ -1,10 +1,10 @@
 <%@ page import="kasyan.springweb.service.GetProductService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%--<%--%>
-<%--    GetProductService getProductService = new GetProductService();--%>
-<%--    double totalPrise = getProductService.totalPrise();--%>
-<%--%>--%>
+<%
+    GetProductService getProductService = new GetProductService();
+    double totalPrise = getProductService.totalPrise();
+%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -70,7 +70,7 @@
         <th colspan="2"></th>
         <th colspan="2"></th>
         <th colspan="2">Итого:</th>
-<%--        <th colspan="2"><b><%=totalPrise%></b></th>--%>
+        <th colspan="2"><b><%=totalPrise%></b></th>
         <th colspan="2"><b> BYN </b></th>
         <th>
             <a href="${pageContext.request.contextPath}/product/endbuyproduct" title="Оформить покупку">

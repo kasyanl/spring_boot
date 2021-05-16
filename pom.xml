@@ -20,6 +20,9 @@
         <apache.poi>5.0.0</apache.poi>
         <apache.poi-ooxml>5.0.0</apache.poi-ooxml>
         <jstl>1.2</jstl>
+        <hb.jpa>1.0.1.Final</hb.jpa>
+        <hb.manager>5.4.29.Final</hb.manager>
+        <hb.core>5.4.29.Final</hb.core>
         <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
 
         <sonar.projectKey>kasyanl_spring_boot</sonar.projectKey>
@@ -34,6 +37,16 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hb.manager}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hb.core}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>${apache.poi}</version>
@@ -42,6 +55,11 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>${apache.poi-ooxml}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>${hb.jpa}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
