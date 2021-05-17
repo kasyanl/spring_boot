@@ -7,6 +7,7 @@ import kasyan.springweb.repository.BuyProductRepository;
 import kasyan.springweb.repository.ProductOfDeleteRepository;
 import kasyan.springweb.repository.ProductRepository;
 import kasyan.springweb.util.HibernateSessionFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ public class GetProductService {
     private BuyProductRepository buyProductRepository;
 
     //отправка запроса на получение всех продуктов из основной БД
-    @Transactional
+
     public List<Product> findAll() {
         return productRepository.findAll();
     }
@@ -34,7 +35,7 @@ public class GetProductService {
     }
 
     //отправка запроса на получение всех ранее удаленных продуктов из основной БД
-    @Transactional
+
     public List<BuyProduct> findAllBuyProduct() {
         return buyProductRepository.findAll();
     }
@@ -59,9 +60,10 @@ public class GetProductService {
 
     // расчет общей суммы покупок
     public double totalPrise() {
-        var session = HibernateSessionFactory.getSessionFactory().openSession();
-        List<BuyProduct> products = session.createQuery("FROM BuyProduct").getResultList();
-        session.close();
+        List<BuyProduct> products = findAllBuyProduct();
+//        var session = HibernateSessionFactory.getSessionFactory().openSession();
+//        List<BuyProduct> products = session.createQuery("FROM BuyProduct").getResultList();
+//        session.close();
         double count = 0;
         if (!products.isEmpty()) {
             for (BuyProduct product : products) {
@@ -97,5 +99,4 @@ public class GetProductService {
     public void setBuyProductRepository(BuyProductRepository buyProductRepository) {
         this.buyProductRepository = buyProductRepository;
     }
-
 }

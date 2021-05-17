@@ -9,6 +9,7 @@ import kasyan.springweb.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -21,21 +22,28 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class GetProductServiceTest {
 
-    @MockBean
+
     private ProductRepository productRepository;
-    @MockBean
+
     private ProductOfDeleteRepository productOfDeleteRepository;
-    @MockBean
+
     private BuyProductRepository buyProductRepository;
 
+    @Autowired
     GetProductService getProductService;
 
     @BeforeEach
     void setUp() {
-        getProductService = new GetProductService();
-        getProductService.setProductRepository(productRepository);
-        getProductService.setProductOfDeleteRepository(productOfDeleteRepository);
-        getProductService.setBuyProductRepository(buyProductRepository);
+//        getProductService = new GetProductService();
+//        getProductService.setProductRepository(productRepository);
+//        getProductService.setProductOfDeleteRepository(productOfDeleteRepository);
+//        getProductService.setBuyProductRepository(buyProductRepository);
+    }
+
+    @Test
+    void test(){
+       double i = getProductService.totalPrise();
+        System.out.println(i);
     }
 
     @Test

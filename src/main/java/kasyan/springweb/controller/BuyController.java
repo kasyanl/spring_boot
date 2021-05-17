@@ -32,6 +32,7 @@ public class BuyController {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/buyproduct");
         modelAndView.addObject("buyProduct", getProductService.findAll());
+        modelAndView.addObject("totalPrice", getProductService.totalPrise());
         return modelAndView;
     }
 
