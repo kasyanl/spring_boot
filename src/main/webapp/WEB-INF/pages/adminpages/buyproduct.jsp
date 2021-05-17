@@ -1,11 +1,5 @@
-<%@ page import="kasyan.springweb.service.GetProductService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%--<%--%>
-<%--    GetProductService getProductService = new GetProductService();--%>
-<%--    --%>
-<%--    double totalPrise = getProductService.totalPrise();--%>
-<%--%>--%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
