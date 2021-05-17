@@ -1,10 +1,10 @@
 <%@ page import="kasyan.springweb.service.GetProductService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%--<%--%>
-<%--    GetProductService getProductService = new GetProductService();--%>
-<%--    double totalPrise= getProductService.totalPrise();--%>
-<%--%>--%>
+<%
+    GetProductService getProductService = new GetProductService();
+    double totalPrise= getProductService.totalPrise();
+%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -20,10 +20,6 @@
 <body align="center">
 <%@include file="../header.jsp" %>
 <h1>Проверьте, пожалуйста, список покупок</h1>
-
-<h3 align="right"><a href="${pageContext.request.contextPath}/exportexcel" title="Экспортировать в excel">
-    <input type="image" src="${pageContext.request.contextPath}/download/xls/excel.png"
-           width="100" height="100" alt="Экспорт в Excel файл" value="Экспорт в Excel файл"></a></h3>
 
 <table class="table" align="center">
     <tr>
@@ -58,7 +54,7 @@
         <th align="center"><b></b></th>
         <th width="100" align="center"><b></b></th>
         <th>Итого:</th>
-<%--        <th><b><%=totalPrise%></b></th>--%>
+        <th><b><%=totalPrise%></b></th>
         <th><b> BYN </b></th>
     </tr>
 </table>

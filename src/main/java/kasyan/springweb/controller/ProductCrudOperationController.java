@@ -26,7 +26,7 @@ public class ProductCrudOperationController {
     // получение всего списка продуктов из основной БД
     @GetMapping(value = "/allproduct")
     public ModelAndView findAll() {
-        ModelAndView modelAndView = new ModelAndView();
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/allproduct");
         modelAndView.addObject("product", getProductService.findAll());
         return modelAndView;
@@ -35,7 +35,7 @@ public class ProductCrudOperationController {
     // полечение всего списка продуктов из лсновной бд для Гостя
     @GetMapping(value = "/allproductguest")
     public ModelAndView findAllForGuest() {
-        ModelAndView modelAndView = new ModelAndView();
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/allproductguest");
         modelAndView.addObject("product", getProductService.findAll());
         return modelAndView;
@@ -75,7 +75,7 @@ public class ProductCrudOperationController {
 
     @GetMapping(value = "/alldeletedproduct")
     public ModelAndView findAllDeletedProduct() {
-        ModelAndView modelAndView = new ModelAndView();
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/alldeleteproducts");
         modelAndView.addObject("product", getProductService.findAllDeleted());
         return modelAndView;
@@ -85,7 +85,7 @@ public class ProductCrudOperationController {
     @GetMapping(value = "/deleteproduct")
     public ModelAndView deleteproduct(@RequestParam(value = "id") int id) throws ProductNotFoundException {
         deleteProductService.deleteProduct(id);
-        return new ModelAndView("adminpages/deleteproduct");
+        return new ModelAndView("redirect:/product/allproduct");
     }
 
     // получение страницы с сообщением, что продукт удален из корзины
@@ -119,7 +119,7 @@ public class ProductCrudOperationController {
     // получение страницы с формой для редактирования данных продукта
     @GetMapping(value = "/editproduct")
     public ModelAndView edit(@RequestParam(value = "id") int id) throws ProductNotFoundException {
-        ModelAndView modelAndView = new ModelAndView("adminpages/editproduct");
+        var modelAndView = new ModelAndView("adminpages/editproduct");
         modelAndView.addObject("product", getProductService.findById(id));
         return modelAndView;
     }

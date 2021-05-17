@@ -18,7 +18,7 @@ public class RecoveryProductService {
     @Transactional
     public void recoveryAllProduct() {
         List<ProductOfDelete> newList = getProductService.findAllDeleted();
-        for (ProductOfDelete productOfDelete : newList) {
+        for (var productOfDelete : newList) {
             saveProductService.saveProduct(productOfDelete.getCategory(), productOfDelete.getName(),
                     productOfDelete.getPrice(), productOfDelete.getDiscount(), productOfDelete.getTotalVolume());
         }

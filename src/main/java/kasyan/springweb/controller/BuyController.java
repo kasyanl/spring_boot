@@ -23,15 +23,13 @@ public class BuyController {
     // получение страницы с формой для добавления продукта
     @GetMapping(value = "/buystarted")
     public String buyStarted() {
-//        var modelAndView = new ModelAndView();
-//        modelAndView.setViewName("adminpages/buystarted");
         deleteProductService.cleanBuyDB();
         return "adminpages/buystarted";
     }
 
     @GetMapping(value = "/buyproduct")
     public ModelAndView buyProductGet() {
-        ModelAndView modelAndView = new ModelAndView();
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/buyproduct");
         modelAndView.addObject("product", getProductService.findAll());
         return modelAndView;
@@ -83,7 +81,7 @@ public class BuyController {
     @GetMapping(value = "/failbuyproduct")
     public ModelAndView failbuyproduct() {
         deleteProductService.cleanBuyDB();
-        return new ModelAndView("redirect:/adminpages/failbuyproduct");
+        return new ModelAndView("redirect:/content");
     }
 
     @Autowired

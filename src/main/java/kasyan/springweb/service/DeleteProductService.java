@@ -43,6 +43,7 @@ public class DeleteProductService {
     @Transactional
     public void cleanBuyDB() {
         buyProductRepository.deleteAll();
+//        }
     }
 
     @Autowired

@@ -26,9 +26,9 @@ public class ProductOfDelete {
     private double price;
     @Column(name = "discount")
     private double discount;
-    @Column(name = "actualPrice")
+    @Column(name = "actual_price")
     private double actualPrice;
-    @Column(name = "totalVolume")
+    @Column(name = "total_volume")
     private double totalVolume;
     @Column(name = "data")
     @Temporal(TemporalType.TIMESTAMP)

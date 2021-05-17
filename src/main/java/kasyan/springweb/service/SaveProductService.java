@@ -25,12 +25,9 @@ public class SaveProductService {
    и автоматическим расчетом цены с учетом скидки */
     @Transactional
     public void saveProduct(String category, String name, double price, double discount, double totalVolume) {
-        List<Product> newList = getProductService.findAll();
-        int id = createId(newList);
+        int id = createId();
         double actualPrice = calculating(price, discount);
-
         var product = new Product();
-
         product.setId(id);
         product.setCategory(category);
         product.setName(name);
@@ -80,10 +77,10 @@ public class SaveProductService {
     }
 
     // формирование ID с одновременной проверкой (если есть пропуск (например 2, 3, ,5 то будет присвоен id=4))
-    public int createId(List<Product> newList) {
+    public int createId() {
+        List<Product> newList = sortProductService.sortById();
         var id = 0; // по умолчанию id = 0
         if (!newList.isEmpty()) { // если записи имеются, проверяем на пропущенные id
-            sortProductService.sortById(); //сортируем для корректной проверки
             int i = id;
             for (Product product : newList) { // проверяем
                 if (product.getId() == i) i++; // теперь i больше текущего id на 1

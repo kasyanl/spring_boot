@@ -36,5 +36,4 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date data;
-
 }

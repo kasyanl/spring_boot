@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PersonService{
+public class PersonService {
 
     private PersonRepository personRepository;
 
     // проверка на совпадение login и password
-    public boolean verificationOfAuthenticity(String login, String password){
+    public boolean verificationOfAuthenticity(String login, String password) {
         List<Person> personList = findAllPerson();
         for (Person person : personList) {
             if (login.equals(person.getLogin()) && password.equals(person.getPassword())) return true;
@@ -22,7 +22,7 @@ public class PersonService{
     }
 
     // отправка запроса на получение всех пользователей их БД
-    public List<Person> findAllPerson(){
+    public List<Person> findAllPerson() {
         return (List<Person>) personRepository.findAll();
     }
 

@@ -21,10 +21,6 @@
 <%@include file="../header.jsp" %>
 <h1>Выберите </h1>
 
-<h3 align="right"><a href="${pageContext.request.contextPath}/exportexcel" title="Экспортировать в excel">
-    <input type="image" src="${pageContext.request.contextPath}/download/xls/excel.png"
-           width="100" height="100" alt="Экспорт в Excel файл" value="Экспорт в Excel файл"></a></h3>
-
 <table class="table" align="center">
     <tr>
         <th colspan="2" width="100" align="center"><b> ID</b></th>
