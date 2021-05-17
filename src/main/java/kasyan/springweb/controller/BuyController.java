@@ -45,7 +45,6 @@ public class BuyController {
 
         if (getProductService.checkingForNumber(quantity, totalVolume)) {
             saveProductService.saveBayProduct(id, quantity);
-            return new ModelAndView("redirect:/product/buyproduct");
         }
         return new ModelAndView("redirect:/product/buyproduct");
     }
