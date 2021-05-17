@@ -48,7 +48,7 @@
         <td></td>
         <td></td>
     </tr>
-    <c:forEach var="product" items="${product}">
+    <c:forEach var="product" items="${fineBerries}">
         <tr>
             <td colspan="2" align="center"><c:out value="${product.id}"/></td>
             <td colspan="2" align="center"><c:out value="${product.getCategory()}"/></td>

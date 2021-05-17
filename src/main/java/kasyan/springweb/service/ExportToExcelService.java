@@ -16,52 +16,24 @@ import java.util.List;
 public class ExportToExcelService {
     static HSSFWorkbook workbook = new HSSFWorkbook();
     private GetProductService getProductService;
+    static System.Logger logger;
 
     // сервис для экспорта всего списка продуктов в excel
-    public List<Product> exportAllList(List<Product> listProduct) {
+    public void exportAllList(List<Product> listProduct) {
         exportList(listProduct);
-        return listProduct;
     }
 
     // сервис на экспорт списка продуктов одной категории в excel
-    public List<Product> exportCategoryList(String category) {
-        return exportList(getProductService.fineCategoryForRead(category));
+    public void exportCategoryList(String category) {
+        exportList(getProductService.fineCategoryForRead(category));
     }
 
     // формирование таблицы excel и добавление данных из List
-    public List<Product> exportList(List<Product> listProduct) {
+    public void exportList(List<Product> listProduct) {
 
-        Sheet sheet = workbook.createSheet("List products"); //название вкладки
-        sheet.setColumnWidth(0, 1500); // ширина строк
-        sheet.setColumnWidth(1, 6000);
-        sheet.setColumnWidth(2, 6000);
-        sheet.setColumnWidth(3, 3000);
-        sheet.setColumnWidth(4, 3000);
-        sheet.setColumnWidth(5, 3000);
-        sheet.setColumnWidth(6, 3000);
+        var sheet = getRows("List products");
         // даем название колонок таблицы
-        var row = sheet.createRow(0); // первая строка
-
-        var idTop = row.createCell(0);
-        idTop.setCellValue("id"); // название первого столбца
-
-        var categoryTop = row.createCell(1);
-        categoryTop.setCellValue("Category");// название второго столбца
-
-        var nameTop = row.createCell(2);
-        nameTop.setCellValue("Name");// название третьего столбца
-
-        var priceTop = row.createCell(3);
-        priceTop.setCellValue("Price, BYN");// название четвертого столбца
-
-        var discountTop = row.createCell(4);
-        discountTop.setCellValue("Discount, %");// название пятого столбца
-
-        var totalVolumeTop = row.createCell(5);
-        totalVolumeTop.setCellValue("Count, kg()");// название шестого столбца
-
-        var actualPriceTop = row.createCell(6);
-        actualPriceTop.setCellValue("Total, BYN");// название седьмого столбца
+        extracted(sheet);
 
         // добавляем данные из List
         var i = 1;
@@ -95,70 +67,44 @@ public class ExportToExcelService {
 
         try (var out = new FileOutputStream(filename)) {
             workbook.write(out);
-        } catch (IOException file) {
-            file.printStackTrace();
+        } catch (IOException ex) {
+            logger.log(System.Logger.Level.INFO, ex);
         }
-        return listProduct;
     }
 
+
     // формирование таблицы excel и добавление данных из List
-    public List<ProductOfDelete> exportListOfBasket(List<ProductOfDelete> listProductDelete) {
+    public void exportListOfBasket(List<ProductOfDelete> listProductDelete) {
 
-        Sheet sheet = workbook.createSheet("List products"); //название вкладки
-        sheet.setColumnWidth(0, 1500); // ширина строк
-        sheet.setColumnWidth(1, 6000);
-        sheet.setColumnWidth(2, 6000);
-        sheet.setColumnWidth(3, 3000);
-        sheet.setColumnWidth(4, 3000);
-        sheet.setColumnWidth(5, 3000);
-        sheet.setColumnWidth(6, 3000);
+        var sheet = getRows("Deleted products");
         // даем название колонок таблицы
-        var row = sheet.createRow(0); // первая строка
-
-        var idTop = row.createCell(0);
-        idTop.setCellValue("id"); // название первого столбца
-
-        var categoryTop = row.createCell(1);
-        categoryTop.setCellValue("Category");// название второго столбца
-
-        var nameTop = row.createCell(2);
-        nameTop.setCellValue("Name");// название третьего столбца
-
-        var priceTop = row.createCell(3);
-        priceTop.setCellValue("Price, BYN");// название четвертого столбца
-
-        var discountTop = row.createCell(4);
-        discountTop.setCellValue("Discount, %");// название пятого столбца
-
-        var totalVolumeTop = row.createCell(5);
-        totalVolumeTop.setCellValue("Count, kg()");// название шестого столбца
-
-        var actualPriceTop = row.createCell(6);
-        actualPriceTop.setCellValue("Total, BYN");// название седьмого столбца
+        extracted(sheet);
 
         // добавляем данные из List
         var i = 1;
         for (ProductOfDelete product : listProductDelete) {
-            var rowProduct = sheet.createRow(i);
-            var id = rowProduct.createCell(0);
+
+            var rowProductDelete = sheet.createRow(i);
+
+            var id = rowProductDelete.createCell(0);
             id.setCellValue(product.getId());
 
-            var category = rowProduct.createCell(1);
+            var category = rowProductDelete.createCell(1);
             category.setCellValue(product.getCategory());
 
-            var name = rowProduct.createCell(2);
+            var name = rowProductDelete.createCell(2);
             name.setCellValue(product.getName());
 
-            var price = rowProduct.createCell(3);
+            var price = rowProductDelete.createCell(3);
             price.setCellValue(product.getPrice());
 
-            var discount = rowProduct.createCell(4);
+            var discount = rowProductDelete.createCell(4);
             discount.setCellValue(product.getDiscount());
 
-            var totalVolume = rowProduct.createCell(5);
+            var totalVolume = rowProductDelete.createCell(5);
             totalVolume.setCellValue(product.getTotalVolume());
 
-            var actualPrice = rowProduct.createCell(6);
+            var actualPrice = rowProductDelete.createCell(6);
             actualPrice.setCellValue(product.getActualPrice());
 
             i++;
@@ -168,10 +114,9 @@ public class ExportToExcelService {
 
         try (var out = new FileOutputStream(filename)) {
             workbook.write(out);
-        } catch (IOException file) {
-            file.printStackTrace();
+        } catch (IOException ex) {
+            logger.log(System.Logger.Level.INFO, ex);
         }
-        return listProductDelete;
     }
 
     // формирование таблицы excel из списка покупок
@@ -235,9 +180,39 @@ public class ExportToExcelService {
 
         try (var out = new FileOutputStream(filename)) {
             workbook.write(out);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            logger.log(System.Logger.Level.INFO, ex);
         }
+    }
+
+    private Sheet getRows(String s) {
+        Sheet sheet = workbook.createSheet(s); //название вкладки
+        sheet.setColumnWidth(0, 1500); // ширина строк
+        sheet.setColumnWidth(1, 6000);
+        sheet.setColumnWidth(2, 6000);
+        sheet.setColumnWidth(3, 3000);
+        sheet.setColumnWidth(4, 3000);
+        sheet.setColumnWidth(5, 3000);
+        sheet.setColumnWidth(6, 3000);
+        return sheet;
+    }
+
+    private void extracted(Sheet sheet) {
+        var row = sheet.createRow(0); // первая строка
+        var idTop = row.createCell(0);
+        idTop.setCellValue("id"); // название первого столбца
+        var categoryTop = row.createCell(1);
+        categoryTop.setCellValue("Category");// название второго столбца
+        var nameTop = row.createCell(2);
+        nameTop.setCellValue("Name");// название третьего столбца
+        var priceTop = row.createCell(3);
+        priceTop.setCellValue("Price, BYN");// название четвертого столбца
+        var discountTop = row.createCell(4);
+        discountTop.setCellValue("Discount, %");// название пятого столбца
+        var totalVolumeTop = row.createCell(5);
+        totalVolumeTop.setCellValue("Count, kg()");// название шестого столбца
+        var actualPriceTop = row.createCell(6);
+        actualPriceTop.setCellValue("Total, BYN");// название седьмого столбца
     }
 
     @Autowired

@@ -40,35 +40,42 @@ public class SaveProductService {
     }
 
     @Transactional
-    public void saveProductOfDelete(int id)  {
+    public void saveProductOfDelete(int id) {
 
         var productOfDelete = new ProductOfDelete();
-        var product = getProductService.findById(id);
+        var products = getProductService.findById(id);
 
-        productOfDelete.setId(product.getId());
-        productOfDelete.setCategory(product.getCategory());
-        productOfDelete.setName(product.getName());
-        productOfDelete.setPrice(product.getPrice());
-        productOfDelete.setDiscount(product.getDiscount());
-        productOfDelete.setActualPrice(product.getActualPrice());
-        productOfDelete.setTotalVolume(product.getTotalVolume());
-        productOfDeleteRepository.save(productOfDelete);
+        if (products.isPresent()) {
+            var product = products.get();
+            productOfDelete.setId(product.getId());
+            productOfDelete.setCategory(product.getCategory());
+            productOfDelete.setName(product.getName());
+            productOfDelete.setPrice(product.getPrice());
+            productOfDelete.setDiscount(product.getDiscount());
+            productOfDelete.setActualPrice(product.getActualPrice());
+            productOfDelete.setTotalVolume(product.getTotalVolume());
+            productOfDeleteRepository.save(productOfDelete);
+        }
     }
 
     // выбор продукта для покупки (передаем количество или вес продукта), добавляем в отдельную БД
     @Transactional
     public void saveBayProduct(int id, double quantity) {
-        var product = getProductService.findById(id);
+        var products = getProductService.findById(id);
         var buyProduct = new BuyProduct();
-        double totalPrice = product.getActualPrice() * quantity;
+        if (products.isPresent()) {
+            var product = products.get();
 
-        buyProduct.setId(product.getId());
-        buyProduct.setName(product.getName());
-        buyProduct.setActualPrice(product.getActualPrice());
-        buyProduct.setQuantity(quantity);
-        buyProduct.setTotalPrice(totalPrice);
+            double totalPrice = product.getActualPrice() * quantity;
 
-        buyProductRepository.save(buyProduct);
+            buyProduct.setId(product.getId());
+            buyProduct.setName(product.getName());
+            buyProduct.setActualPrice(product.getActualPrice());
+            buyProduct.setQuantity(quantity);
+            buyProduct.setTotalPrice(totalPrice);
+
+            buyProductRepository.save(buyProduct);
+        }
     }
 
     // метод для расчета стоимости с учетом скидки

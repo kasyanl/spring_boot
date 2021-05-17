@@ -30,7 +30,7 @@
             <th width="100" align="center"><b> конечная цена, BYN</b></th>
             <th width="100" align="center"><b> наличие, кг(шт)</b></th>
         </tr>
-        <c:forEach var="product" items="${product}">
+        <c:forEach var="product" items="${fineBerriesGuest}">
             <tr>
                 <td><c:out value="${product.id}"/></td>
                 <td><c:out value="${product.category}"/></td>

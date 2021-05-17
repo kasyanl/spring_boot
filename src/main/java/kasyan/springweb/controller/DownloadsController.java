@@ -1,6 +1,8 @@
 package kasyan.springweb.controller;
 
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 //Контроллер для скачивания файла и подгрузки изображений
@@ -17,12 +18,14 @@ import java.nio.file.Paths;
 @Controller
 public class DownloadsController {
 
-    @RequestMapping("/xls/{fileName:.+}")
+    static System.Logger logger;
+
+    @GetMapping("/xls/{fileName:.+}")
     public void downloadPDFResource(HttpServletRequest request,
                                     HttpServletResponse response,
                                     @PathVariable("fileName") String fileName) {
         String dataDirectory = request.getServletContext().getRealPath("/WEB-INF/downloads/xls/");
-        Path file = Paths.get(dataDirectory, fileName);
+        var file = Paths.get(dataDirectory, fileName);
         if (Files.exists(file)) {
             response.setContentType("application/xls");
             response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
@@ -30,7 +33,7 @@ public class DownloadsController {
                 Files.copy(file, response.getOutputStream());
                 response.getOutputStream().flush();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                logger.log(System.Logger.Level.INFO, ex);
             }
         }
     }

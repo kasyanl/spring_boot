@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductOfDeleteRepository extends JpaRepository<ProductOfDelete, Integer> {
 
-    ProductOfDelete findById(int id);
-
     @Override
     <S extends ProductOfDelete> S save(S s);
 

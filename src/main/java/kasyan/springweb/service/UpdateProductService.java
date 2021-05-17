@@ -36,9 +36,13 @@ public class UpdateProductService {
     @Transactional
     public void endTransaction() {
         for (BuyProduct buyProduct : getProductService.findAllBuyProduct()) {
-            var product = getProductService.findById(buyProduct.getId());
-            double totalVolume = product.getTotalVolume() - buyProduct.getQuantity();
-            update(product.getId(), product.getCategory(), product.getName(), product.getPrice(), product.getDiscount(), totalVolume);
+            var products = getProductService.findById(buyProduct.getId());
+            if (products.isPresent()) {
+                var product = products.get();
+                double totalVolume = product.getTotalVolume() - buyProduct.getQuantity();
+                update(product.getId(), product.getCategory(), product.getName(),
+                        product.getPrice(), product.getDiscount(), totalVolume);
+            }
         }
     }
 

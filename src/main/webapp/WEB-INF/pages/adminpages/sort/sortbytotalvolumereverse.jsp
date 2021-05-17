@@ -33,7 +33,7 @@
         <td></td>
     </tr>
     <%@include file="../sortelement.jsp"%>
-    <c:forEach var="product" items="${product}">
+    <c:forEach var="product" items="${sortByTotalVolumeReverse}">
         <tr>
             <td colspan="2" align="center"><c:out value="${product.getId()}"/></td>
             <td colspan="2" align="center"><c:out value="${product.getCategory()}"/></td>

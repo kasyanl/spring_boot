@@ -20,7 +20,7 @@ public class ProductSortController {
     public ModelAndView sortById(){
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbyid");
-        modelAndView.addObject("product", sortProductService.sortById());
+        modelAndView.addObject("sortById", sortProductService.sortById());
         return modelAndView;
     }
 
@@ -29,7 +29,7 @@ public class ProductSortController {
     public ModelAndView sortByIdReverse(){
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbyidreverse");
-        modelAndView.addObject("product", sortProductService.sortByIdReverse());
+        modelAndView.addObject("sortByIdReverse", sortProductService.sortByIdReverse());
         return modelAndView;
     }
 
@@ -38,7 +38,7 @@ public class ProductSortController {
     public ModelAndView sortByCategory() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbycategory");
-        modelAndView.addObject("product", sortProductService.sortByCategory());
+        modelAndView.addObject("sortByCategory", sortProductService.sortByCategory());
         return modelAndView;
     }
 
@@ -47,7 +47,7 @@ public class ProductSortController {
     public ModelAndView sortByCategoryReverse() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbycategoryreverse");
-        modelAndView.addObject("product", sortProductService.sortByCategoryReverse());
+        modelAndView.addObject("sortByCategoryReverse", sortProductService.sortByCategoryReverse());
         return modelAndView;
     }
 
@@ -56,7 +56,7 @@ public class ProductSortController {
     public ModelAndView sortByName() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbyname");
-        modelAndView.addObject("product", sortProductService.sortByName());
+        modelAndView.addObject("sortByName", sortProductService.sortByName());
         return modelAndView;
     }
 
@@ -65,7 +65,7 @@ public class ProductSortController {
     public ModelAndView sortByNameReverse() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbynamereverse");
-        modelAndView.addObject("product", sortProductService.sortByNameReverse());
+        modelAndView.addObject("sortByNameReverse", sortProductService.sortByNameReverse());
         return modelAndView;
     }
 
@@ -74,7 +74,7 @@ public class ProductSortController {
     public ModelAndView sortByPrice() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbyprice");
-        modelAndView.addObject("product", sortProductService.sortByPrice());
+        modelAndView.addObject("sortByPrice", sortProductService.sortByPrice());
         return modelAndView;
     }
 
@@ -83,7 +83,7 @@ public class ProductSortController {
     public ModelAndView sortByPriceReverse() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbypricereverse");
-        modelAndView.addObject("product", sortProductService.sortByPriceReverse());
+        modelAndView.addObject("sortByPriceReverse", sortProductService.sortByPriceReverse());
         return modelAndView;
     }
 
@@ -92,7 +92,7 @@ public class ProductSortController {
     public ModelAndView sortByDiscount() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbydiscount");
-        modelAndView.addObject("product", sortProductService.sortByDiscount());
+        modelAndView.addObject("sortByDiscount", sortProductService.sortByDiscount());
         return modelAndView;
     }
 
@@ -101,7 +101,7 @@ public class ProductSortController {
     public ModelAndView sortByDiscountReverse() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbydiscountreverse");
-        modelAndView.addObject("product", sortProductService.sortByDiscountReverse());
+        modelAndView.addObject("sortByDiscountReverse", sortProductService.sortByDiscountReverse());
         return modelAndView;
     }
 
@@ -110,7 +110,7 @@ public class ProductSortController {
     public ModelAndView sortByActualPrice() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbyactualprice");
-        modelAndView.addObject("product", sortProductService.sortByActualPrice());
+        modelAndView.addObject("sortByActualPrice", sortProductService.sortByActualPrice());
         return modelAndView;
     }
 
@@ -119,7 +119,7 @@ public class ProductSortController {
     public ModelAndView sortByActualPriceReverse() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbyactualpricereverse");
-        modelAndView.addObject("product", sortProductService.sortByActualPriceReverse());
+        modelAndView.addObject("sortByActualPriceReverse", sortProductService.sortByActualPriceReverse());
         return modelAndView;
     }
 
@@ -128,7 +128,7 @@ public class ProductSortController {
     public ModelAndView sortByTotalVolume() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbytotalvolume");
-        modelAndView.addObject("product", sortProductService.sortByTotalVolume());
+        modelAndView.addObject("sortByTotalVolume", sortProductService.sortByTotalVolume());
         return modelAndView;
     }
 
@@ -137,7 +137,7 @@ public class ProductSortController {
     public ModelAndView sortByTotalVolumeReverse() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/sort/sortbytotalvolumereverse");
-        modelAndView.addObject("product", sortProductService.sortByTotalVolumeReverse());
+        modelAndView.addObject("sortByTotalVolumeReverse", sortProductService.sortByTotalVolumeReverse());
         return modelAndView;
     }
 
@@ -146,7 +146,7 @@ public class ProductSortController {
     public ModelAndView sortByIdGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbyidguest");
-        modelAndView.addObject("product", sortProductService.sortById());
+        modelAndView.addObject("sortByIdGuest", sortProductService.sortById());
         return modelAndView;
     }
 
@@ -155,7 +155,7 @@ public class ProductSortController {
     public ModelAndView sortByIdReverseGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbyidreverseguest");
-        modelAndView.addObject("product", sortProductService.sortByIdReverse());
+        modelAndView.addObject("sortByIdReverseGuest", sortProductService.sortByIdReverse());
         return modelAndView;
     }
 
@@ -164,7 +164,7 @@ public class ProductSortController {
     public ModelAndView sortByCategoryGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbycategoryguest");
-        modelAndView.addObject("product", sortProductService.sortByCategory());
+        modelAndView.addObject("sortByCategoryGuest", sortProductService.sortByCategory());
         return modelAndView;
     }
 
@@ -173,7 +173,7 @@ public class ProductSortController {
     public ModelAndView sortByCategoryReverseGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbycategoryreverseguest");
-        modelAndView.addObject("product", sortProductService.sortByCategoryReverse());
+        modelAndView.addObject("sortByCategoryReverseGuest", sortProductService.sortByCategoryReverse());
         return modelAndView;
     }
 
@@ -182,7 +182,7 @@ public class ProductSortController {
     public ModelAndView sortByNameGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbynameguest");
-        modelAndView.addObject("product", sortProductService.sortByName());
+        modelAndView.addObject("sortByNameGuest", sortProductService.sortByName());
         return modelAndView;
     }
 
@@ -191,7 +191,7 @@ public class ProductSortController {
     public ModelAndView sortByNameReverseGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbynamereverseguest");
-        modelAndView.addObject("product", sortProductService.sortByNameReverse());
+        modelAndView.addObject("sortByNameReverseGuest", sortProductService.sortByNameReverse());
         return modelAndView;
     }
 
@@ -200,7 +200,7 @@ public class ProductSortController {
     public ModelAndView sortByPriceGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbypriceguest");
-        modelAndView.addObject("product", sortProductService.sortByPrice());
+        modelAndView.addObject("sortByPriceGuest", sortProductService.sortByPrice());
         return modelAndView;
     }
 
@@ -209,7 +209,7 @@ public class ProductSortController {
     public ModelAndView sortByPriceReverseGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbypricereverseguest");
-        modelAndView.addObject("product", sortProductService.sortByActualPriceReverse());
+        modelAndView.addObject("sortByPriceReverseGuest", sortProductService.sortByActualPriceReverse());
         return modelAndView;
     }
 
@@ -218,7 +218,7 @@ public class ProductSortController {
     public ModelAndView sortByDiscountGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbydiscountguest");
-        modelAndView.addObject("product", sortProductService.sortByDiscount());
+        modelAndView.addObject("sortByDiscountGuest", sortProductService.sortByDiscount());
         return modelAndView;
     }
 
@@ -227,7 +227,7 @@ public class ProductSortController {
     public ModelAndView sortByDiscountReverseGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbydiscountreverseguest");
-        modelAndView.addObject("product", sortProductService.sortByDiscountReverse());
+        modelAndView.addObject("sortByDiscountReverseGuest", sortProductService.sortByDiscountReverse());
         return modelAndView;
     }
 
@@ -236,7 +236,7 @@ public class ProductSortController {
     public ModelAndView sortByActualPriceGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbyactualpriceguest");
-        modelAndView.addObject("product", sortProductService.sortByActualPrice());
+        modelAndView.addObject("sortByActualPriceGuest", sortProductService.sortByActualPrice());
         return modelAndView;
     }
 
@@ -245,7 +245,7 @@ public class ProductSortController {
     public ModelAndView sortByActualPriceReverseGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbyactualpricereverseguest");
-        modelAndView.addObject("product", sortProductService.sortByActualPriceReverse());
+        modelAndView.addObject("sortByActualPriceReverseGuest", sortProductService.sortByActualPriceReverse());
         return modelAndView;
     }
 
@@ -254,7 +254,7 @@ public class ProductSortController {
     public ModelAndView sortByTotalVolumeGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbytotalvolumeguest");
-        modelAndView.addObject("product", sortProductService.sortByTotalVolume());
+        modelAndView.addObject("sortByTotalVolumeGuest", sortProductService.sortByTotalVolume());
         return modelAndView;
     }
 
@@ -263,7 +263,7 @@ public class ProductSortController {
     public ModelAndView sortByTotalVolumeReverseGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/sort/sortbytotalvolumereverseguest");
-        modelAndView.addObject("product", sortProductService.sortByTotalVolumeReverse());
+        modelAndView.addObject("sortByTotalVolumeReverseGuest", sortProductService.sortByTotalVolumeReverse());
         return modelAndView;
     }
 

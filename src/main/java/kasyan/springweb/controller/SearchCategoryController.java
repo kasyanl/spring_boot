@@ -18,7 +18,7 @@ public class SearchCategoryController {
     public ModelAndView fineFruits() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/finecategory/finefruits");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("FRUITS"));
+        modelAndView.addObject("fineFruits", getProductService.fineCategoryForRead("FRUITS"));
         return modelAndView;
     }
 
@@ -27,7 +27,7 @@ public class SearchCategoryController {
     public ModelAndView fineBerries() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/finecategory/fineberries");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("BERRIES"));
+        modelAndView.addObject("fineBerries", getProductService.fineCategoryForRead("BERRIES"));
         return modelAndView;
     }
 
@@ -36,7 +36,7 @@ public class SearchCategoryController {
     public ModelAndView fineVegetables() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/finecategory/finevegetables");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("VEGETABLES"));
+        modelAndView.addObject("fineVegetables", getProductService.fineCategoryForRead("VEGETABLES"));
         return modelAndView;
     }
 
@@ -45,7 +45,7 @@ public class SearchCategoryController {
     public ModelAndView fineMilkProduct() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/finecategory/finemilkproduct");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("MILK_PRODUCT"));
+        modelAndView.addObject("fineMilkProduct", getProductService.fineCategoryForRead("MILK_PRODUCT"));
         return modelAndView;
     }
 
@@ -54,7 +54,7 @@ public class SearchCategoryController {
     public ModelAndView fineAlcohol() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/finecategory/finealcohol");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("ALCOHOLIC_BEVERAGES"));
+        modelAndView.addObject("fineAlcohol", getProductService.fineCategoryForRead("ALCOHOLIC_BEVERAGES"));
         return modelAndView;
     }
 
@@ -63,7 +63,7 @@ public class SearchCategoryController {
     public ModelAndView fineMeat() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/finecategory/finemeat");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("MEAT"));
+        modelAndView.addObject("fineMeat", getProductService.fineCategoryForRead("MEAT"));
         return modelAndView;
     }
 
@@ -72,7 +72,7 @@ public class SearchCategoryController {
     public ModelAndView fineFruitsGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/finecategory/finefruitsguest");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("FRUITS"));
+        modelAndView.addObject("fineFruitsGuest", getProductService.fineCategoryForRead("FRUITS"));
         return modelAndView;
     }
 
@@ -81,7 +81,7 @@ public class SearchCategoryController {
     public ModelAndView fineBerriesGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/finecategory/fineberriesguest");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("BERRIES"));
+        modelAndView.addObject("fineBerriesGuest", getProductService.fineCategoryForRead("BERRIES"));
         return modelAndView;
     }
 
@@ -90,7 +90,7 @@ public class SearchCategoryController {
     public ModelAndView fineVegetablesGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/finecategory/finevegetablesguest");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("VEGETABLES"));
+        modelAndView.addObject("fineVegetablesGuest", getProductService.fineCategoryForRead("VEGETABLES"));
         return modelAndView;
     }
 
@@ -99,7 +99,7 @@ public class SearchCategoryController {
     public ModelAndView fineMilkProductGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/finecategory/finemilkproductguest");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("MILK_PRODUCT"));
+        modelAndView.addObject("fineMilkProductGuest", getProductService.fineCategoryForRead("MILK_PRODUCT"));
         return modelAndView;
     }
 
@@ -108,7 +108,7 @@ public class SearchCategoryController {
     public ModelAndView fineAlcoholGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/finecategory/finealcoholguest");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("ALCOHOLIC_BEVERAGES"));
+        modelAndView.addObject("fineAlcoholGuest", getProductService.fineCategoryForRead("ALCOHOLIC_BEVERAGES"));
         return modelAndView;
     }
 
@@ -117,7 +117,7 @@ public class SearchCategoryController {
     public ModelAndView fineMeatGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/finecategory/finemeatguest");
-        modelAndView.addObject("product", getProductService.fineCategoryForRead("MEAT"));
+        modelAndView.addObject("fineMeatGuest", getProductService.fineCategoryForRead("MEAT"));
         return modelAndView;
     }
 

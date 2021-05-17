@@ -9,13 +9,16 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
-
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class HibernateSessionFactory {
+    private HibernateSessionFactory() {
+    }
+
     private static SessionFactory sessionFactory;
+    static System.Logger logger;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -36,8 +39,8 @@ public class HibernateSessionFactory {
                         .applySettings(configuration.getProperties()).build();
                 sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                logger.log(System.Logger.Level.INFO, ex);
             }
         }
         return sessionFactory;

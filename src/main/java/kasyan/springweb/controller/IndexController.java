@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/")
@@ -47,29 +46,23 @@ public class IndexController {
 
     // экспорт данных из корзины в excel
     @GetMapping(value = "/exportexceldel")
-    public ModelAndView exportExcelDel() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/exportexceldel");
-        modelAndView.addObject("product", exportToExcelService.exportListOfBasket(getProductService.findAllDeleted()));
-        return modelAndView;
+    public String exportExcelDel() {
+        exportToExcelService.exportListOfBasket(getProductService.findAllDeleted());
+        return "adminpages/exportexceldel";
     }
 
     // экспорт данных  в excel основной БД для юзера
     @GetMapping(value = "/exportexcel")
-    public ModelAndView exportExcel() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/exportexcel");
-        modelAndView.addObject("product", exportToExcelService.exportAllList(getProductService.findAll()));
-        return modelAndView;
+    public String exportExcel() {
+        exportToExcelService.exportAllList(getProductService.findAll());
+        return "adminpages/exportexcel";
     }
 
     // экспорт данных  в excel основной БД для гостя
     @GetMapping(value = "/exportexcelguest")
-    public ModelAndView exportExcelGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/exportexcelguest");
-        modelAndView.addObject("product", exportToExcelService.exportAllList(getProductService.findAll()));
-        return modelAndView;
+    public String exportExcelGuest() {
+        exportToExcelService.exportAllList(getProductService.findAll());
+        return "guestpages/exportexcelguest";
     }
 
     @Autowired

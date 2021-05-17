@@ -30,11 +30,7 @@
                 <input type="image" src="${pageContext.request.contextPath}/download/xls/del.png"
                        width="100" height="100" alt="Очистить корзину" value="Очистить корзину"></a></th>
         </th>
-<%--        <th>--%>
-<%--            <a href="${pageContext.request.contextPath}/exportexceldel" title="Экспортировать в excel">--%>
-<%--                <input type="image" src="${pageContext.request.contextPath}/download/xls/excel.png"--%>
-<%--                       width="100" height="100" alt="Экспорт в Excel файл" value="Экспорт в Excel файл"></a></th>--%>
-    </tr>
+
 </table>
 <br>
 <br>
@@ -55,7 +51,7 @@
         <th></th>
         <th></th>
     </tr>
-    <c:forEach var="product" items="${product}">
+    <c:forEach var="product" items="${productDel}">
         <tr>
             <td align="center"><c:out value="${product.getId()}"/></td>
             <td align="center"><c:out value="${product.getCategory()}"/></td>

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/product")
@@ -15,110 +14,86 @@ public class ExportToExcelController {
 
     // получение списка категории ALCOHOLIC_BEVERAGES
     @GetMapping(value = "/exportexcel/alcohol")
-    public ModelAndView exportExcelAlcohol() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/exportexcel/alcohol");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("ALCOHOLIC_BEVERAGES"));
-        return modelAndView;
+    public String exportExcelAlcohol() {
+        exportToExcelService.exportCategoryList("ALCOHOLIC_BEVERAGES");
+        return "adminpages/exportexcel/alcohol";
     }
 
     // экспорт списка категории BERRIES в excel
     @GetMapping(value = "/exportexcel/berries")
-    public ModelAndView exportExcelBerries() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/exportexcel/berries");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("BERRIES"));
-        return modelAndView;
+    public String exportExcelBerries() {
+        exportToExcelService.exportCategoryList("BERRIES");
+        return "adminpages/exportexcel/berries";
     }
 
     // экспорт списка категории FRUITS в excel
     @GetMapping(value = "/exportexcel/fruits")
-    public ModelAndView exportExcelFruits() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/exportexcel/fruits");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("FRUITS"));
-        return modelAndView;
+    public String exportExcelFruits() {
+        exportToExcelService.exportCategoryList("FRUITS");
+        return "adminpages/exportexcel/fruits";
     }
 
     // экспорт списка категории MEAT в excel
     @GetMapping(value = "/exportexcel/meat")
-    public ModelAndView exportExcelMeat() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/exportexcel/meat");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("MEAT"));
-        return modelAndView;
+    public String exportExcelMeat() {
+        exportToExcelService.exportCategoryList("MEAT");
+        return "adminpages/exportexcel/meat";
     }
 
     // экспорт списка категории MILK_PRODUCT в excel
     @GetMapping(value = "/exportexcel/milk")
-    public ModelAndView exportExcelMikl() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/exportexcel/milk");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("MILK_PRODUCT"));
-        return modelAndView;
+    public String exportExcelMikl() {
+        exportToExcelService.exportCategoryList("MILK_PRODUCT");
+        return "adminpages/exportexcel/milk";
     }
 
     // экспорт списка категории VEGETABLES в excel
     @GetMapping(value = "/exportexcel/vegetables")
-    public ModelAndView exportExcelVegetables() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/exportexcel/vegetables");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("VEGETABLES"));
-        return modelAndView;
+    public String exportExcelVegetables() {
+        exportToExcelService.exportCategoryList("VEGETABLES");
+        return "adminpages/exportexcel/vegetables";
     }
 
     // получение списка категории ALCOHOLIC_BEVERAGES для Гостя
     @GetMapping(value = "/exportexcel/alcoholguest")
-    public ModelAndView exportExcelAlcoholGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/exportexcel/alcoholguest");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("ALCOHOLIC_BEVERAGES"));
-        return modelAndView;
+    public String exportExcelAlcoholGuest() {
+        exportToExcelService.exportCategoryList("ALCOHOLIC_BEVERAGES");
+        return "guestpages/exportexcel/alcoholguest";
     }
 
     // экспорт списка категории BERRIES в excel для Гостя
     @GetMapping(value = "/exportexcel/berriesguest")
-    public ModelAndView exportExcelBerriesGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/exportexcel/berriesguest");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("BERRIES"));
-        return modelAndView;
+    public String exportExcelBerriesGuest() {
+        exportToExcelService.exportCategoryList("BERRIES");
+        return "guestpages/exportexcel/berriesguest";
     }
 
     // экспорт списка категории FRUITS в excel для Гостя
     @GetMapping(value = "/exportexcel/fruitsguest")
-    public ModelAndView exportExcelFruitsGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/exportexcel/fruitsguest");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("FRUITS"));
-        return modelAndView;
+    public String exportExcelFruitsGuest() {
+        exportToExcelService.exportCategoryList("FRUITS");
+        return "guestpages/exportexcel/fruitsguest";
     }
 
     // экспорт списка категории MEAT в excel для Гостя
     @GetMapping(value = "/exportexcel/meatguest")
-    public ModelAndView exportExcelMeatGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/exportexcel/meatguest");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("MEAT"));
-        return modelAndView;
+    public String exportExcelMeatGuest() {
+        exportToExcelService.exportCategoryList("MEAT");
+        return "guestpages/exportexcel/meatguest";
     }
 
     // экспорт списка категории MILK_PRODUCT в excel для Гостя
     @GetMapping(value = "/exportexcel/milkguest")
-    public ModelAndView exportExcelMiklGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/exportexcel/milkguest");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("MILK_PRODUCT"));
-        return modelAndView;
+    public String exportExcelMiklGuest() {
+        exportToExcelService.exportCategoryList("MILK_PRODUCT");
+        return "guestpages/exportexcel/milkguest";
     }
 
     // экспорт списка категории VEGETABLES в excel для Гостя
     @GetMapping(value = "/exportexcel/vegetablesguest")
-    public ModelAndView exportExcelVegetablesGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/exportexcel/vegetablesguest");
-        modelAndView.addObject("product", exportToExcelService.exportCategoryList("VEGETABLES"));
-        return modelAndView;
+    public String exportExcelVegetablesGuest() {
+        exportToExcelService.exportCategoryList("VEGETABLES");
+        return "guestpages/exportexcel/vegetablesguest";
     }
 
     @Autowired

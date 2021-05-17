@@ -49,7 +49,7 @@
             <td></td>
             <td></td>
         </tr>
-        <c:forEach var="product" items="${product}">
+        <c:forEach var="product" items="${fineAlcohol}">
             <tr>
                 <td><c:out value="${product.id}"/>></td>
                 <td><c:out value="${product.category}"/></td>

@@ -48,7 +48,7 @@
         <th></th>
         <th></th>
     </tr>
-    <c:forEach var="product" items="${product}">
+    <c:forEach var="product" items="${fineFruits}">
         <tr>
             <td><c:out value="${product.getId()}"/></td>
             <td><c:out value="${product.getCategory()}"/></td>

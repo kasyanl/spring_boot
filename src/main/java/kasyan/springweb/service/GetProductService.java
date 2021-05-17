@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GetProductService {
@@ -40,12 +41,12 @@ public class GetProductService {
 
     //находим конкретный Product по ID
     @Transactional
-    public Product findById(int id) {
+    public Optional <Product> findById(int id) {
         return productRepository.findById(id);
     }
 
     @Transactional
-    public ProductOfDelete findProductOfBascketByID(int id) {
+    public Optional <ProductOfDelete> findProductOfBasketByID(int id) {
         return productOfDeleteRepository.findById(id);
     }
 
@@ -96,4 +97,5 @@ public class GetProductService {
     public void setBuyProductRepository(BuyProductRepository buyProductRepository) {
         this.buyProductRepository = buyProductRepository;
     }
+
 }

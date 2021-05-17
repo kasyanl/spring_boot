@@ -31,7 +31,7 @@ public class BuyController {
     public ModelAndView buyProductGet() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/buyproduct");
-        modelAndView.addObject("product", getProductService.findAll());
+        modelAndView.addObject("buyProduct", getProductService.findAll());
         return modelAndView;
     }
 

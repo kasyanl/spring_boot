@@ -1,6 +1,5 @@
 package kasyan.springweb.controller;
 
-import kasyan.springweb.exceptions.ProductNotFoundException;
 import kasyan.springweb.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,7 @@ public class ProductCrudOperationController {
     public ModelAndView findAllForGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/allproductguest");
-        modelAndView.addObject("product", getProductService.findAll());
+        modelAndView.addObject("productGuest", getProductService.findAll());
         return modelAndView;
     }
 
@@ -55,7 +54,7 @@ public class ProductCrudOperationController {
                             @RequestParam(value = "discount") double discount,
                             @RequestParam(value = "totalVolume") double totalVolume) {
         saveProductService.saveProduct(category, name, price, discount, totalVolume);
-        return new ModelAndView("redirect:/product/allproduct");
+        return new ModelAndView("adminpages/allproduct");
     }
 
     // получение всего списка продуктов из корзины
@@ -77,13 +76,13 @@ public class ProductCrudOperationController {
     public ModelAndView findAllDeletedProduct() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/alldeleteproducts");
-        modelAndView.addObject("product", getProductService.findAllDeleted());
+        modelAndView.addObject("productDel", getProductService.findAllDeleted());
         return modelAndView;
     }
 
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/deleteproduct")
-    public ModelAndView deleteproduct(@RequestParam(value = "id") int id) throws ProductNotFoundException {
+    public ModelAndView deleteproduct(@RequestParam(value = "id") int id){
         deleteProductService.deleteProduct(id);
         return new ModelAndView("redirect:/product/allproduct");
     }
@@ -118,7 +117,7 @@ public class ProductCrudOperationController {
 
     // получение страницы с формой для редактирования данных продукта
     @GetMapping(value = "/editproduct")
-    public ModelAndView edit(@RequestParam(value = "id") int id) throws ProductNotFoundException {
+    public ModelAndView edit(@RequestParam(value = "id") int id) {
         var modelAndView = new ModelAndView("adminpages/editproduct");
         modelAndView.addObject("product", getProductService.findById(id));
         return modelAndView;

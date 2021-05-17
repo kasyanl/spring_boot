@@ -28,10 +28,10 @@ public class PersonController {
         // разделение пользователей на юзера и гостя
         if (personService.verificationOfAuthenticity(login, password)) {
             // перенаправление на ветку юзера (логин и пароль совпали)
-            return new ModelAndView("redirect:currentlogin");
+            return new ModelAndView("redirect:/currentlogin");
         }
         // перенаправление на страницу с формой для повторного логирования (логин и/или пароль не совпали)
-        return new ModelAndView("redirect:nocurrentlogin");
+        return new ModelAndView("redirect:/nocurrentlogin");
     }
 
     // получение страницы с сообщением, что вход выполнен
