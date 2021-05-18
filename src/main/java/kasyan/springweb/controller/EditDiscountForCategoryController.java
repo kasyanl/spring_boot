@@ -1,6 +1,6 @@
 package kasyan.springweb.controller;
 
-import kasyan.springweb.service.UpdateProductService;
+import kasyan.springweb.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/product")
 public class EditDiscountForCategoryController {
 
-    private UpdateProductService updateProductService;
+    private ProductService productService;
 
     // получение страницы с формой для изменения скидки для категории ALCOHOLIC_BEVERAGES
     @GetMapping(value = "/alcoholdiscount")
@@ -24,7 +24,7 @@ public class EditDiscountForCategoryController {
     // отправка заданной скидки для категории ALCOHOLIC_BEVERAGES
     @PostMapping(value = "/alcoholdiscount")
     public ModelAndView editAlcoholDiscount(@RequestParam(value = "discount") double discount) {
-        updateProductService.updateDiscountForCategory("ALCOHOLIC_BEVERAGES", discount);
+        productService.updateDiscountForCategory("ALCOHOLIC_BEVERAGES", discount);
         return new ModelAndView("redirect:/product/finealcohol");
     }
 
@@ -37,7 +37,7 @@ public class EditDiscountForCategoryController {
     // отправка заданной скидки для категории FRUITS
     @PostMapping(value = "/fruitsdiscount")
     public ModelAndView editFruitsDiscount(@RequestParam(value = "discount") double discount) {
-        updateProductService.updateDiscountForCategory("FRUITS", discount);
+        productService.updateDiscountForCategory("FRUITS", discount);
         return new ModelAndView("redirect:/product/finefruits");
     }
 
@@ -50,7 +50,7 @@ public class EditDiscountForCategoryController {
     // отправка заданной скидки для категории BERRIES
     @PostMapping(value = "/berriesdiscount")
     public ModelAndView editBerriesDiscount(@RequestParam(value = "discount") double discount) {
-        updateProductService.updateDiscountForCategory("BERRIES", discount);
+        productService.updateDiscountForCategory("BERRIES", discount);
         return new ModelAndView("redirect:/product/fineberries");
     }
 
@@ -63,7 +63,7 @@ public class EditDiscountForCategoryController {
     // отправка заданной скидки для категории VEGETABLES
     @PostMapping(value = "/vegetablesdiscount")
     public ModelAndView editVegetablesDiscount(@RequestParam(value = "discount") double discount) {
-        updateProductService.updateDiscountForCategory("VEGETABLES", discount);
+        productService.updateDiscountForCategory("VEGETABLES", discount);
         return new ModelAndView("redirect:/product/finevegetables");
     }
 
@@ -76,7 +76,7 @@ public class EditDiscountForCategoryController {
     // отправка заданной скидки для категории MILK_PRODUCT
     @PostMapping(value = "/milkproductdiscount")
     public ModelAndView editMilkProductDiscount(@RequestParam(value = "discount") double discount) {
-        updateProductService.updateDiscountForCategory("MILK_PRODUCT", discount);
+        productService.updateDiscountForCategory("MILK_PRODUCT", discount);
         return new ModelAndView("redirect:/product/finemilkproduct");
     }
 
@@ -89,12 +89,12 @@ public class EditDiscountForCategoryController {
     // отправка заданной скидки для категории MEAT
     @PostMapping(value = "/meatdiscount")
     public ModelAndView editMeatDiscount(@RequestParam(value = "discount") double discount) {
-        updateProductService.updateDiscountForCategory("MEAT", discount);
+        productService.updateDiscountForCategory("MEAT", discount);
         return new ModelAndView("redirect:/product/finemeat");
     }
 
     @Autowired
-    public void setUpdateProductService(UpdateProductService updateProductService) {
-        this.updateProductService = updateProductService;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 }

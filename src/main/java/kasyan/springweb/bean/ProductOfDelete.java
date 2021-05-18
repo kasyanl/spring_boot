@@ -24,12 +24,12 @@ public class ProductOfDelete {
     private String name;
     @Column(name = "price")
     private double price;
-    @Column(name = "discount")
-    private double discount;
     @Column(name = "actual_price")
     private double actualPrice;
     @Column(name = "total_volume")
     private double totalVolume;
+    @Column(name = "discount")
+    private double discount;
     @Column(name = "data")
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp

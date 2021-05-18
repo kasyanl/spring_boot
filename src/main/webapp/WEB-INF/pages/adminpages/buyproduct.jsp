@@ -1,10 +1,5 @@
-<%@ page import="kasyan.springweb.service.GetProductService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%
-    GetProductService getProductService = new GetProductService();
-    double totalPrise = getProductService.totalPrise();
-%>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -33,7 +28,6 @@
         <td>Выбор количества товара</td>
 
     </tr>
-    <%@include file="sortelement.jsp" %>
     <c:forEach var="product" items="${buyProduct}">
         <tr>
             <td colspan="2" align="center"><c:out value="${product.id}"/></td>
@@ -66,7 +60,9 @@
         <th colspan="2"></th>
         <th colspan="2"></th>
         <th colspan="2">Итого:</th>
-        <th colspan="2"><b><%=totalPrise%></b></th>
+        <th colspan="2"><b>
+            <c:out value="${totalPrice}"/>
+        </b></th>
         <th colspan="2"><b> BYN </b></th>
         <th>
             <a href="${pageContext.request.contextPath}/product/endbuyproduct" title="Оформить покупку">

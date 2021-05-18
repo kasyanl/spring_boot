@@ -14,8 +14,7 @@ public class PersonService {
 
     // проверка на совпадение login и password
     public boolean verificationOfAuthenticity(String login, String password) {
-        List<Person> personList = findAllPerson();
-        for (Person person : personList) {
+        for (Person person : findAllPerson()) {
             if (login.equals(person.getLogin()) && password.equals(person.getPassword())) return true;
         }
         return false;

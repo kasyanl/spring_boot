@@ -14,16 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/product")
 public class BuyController {
 
-    private DeleteProductService deleteProductService;
     private ExportToExcelService exportToExcelService;
-    private GetProductService getProductService;
-    private UpdateProductService updateProductService;
-    private SaveProductService saveProductService;
+    private BuyProductService buyProductService;
+    private ProductService productService;
+    private UtilService utilService;
+
 
     // получение страницы с формой для добавления продукта
     @GetMapping(value = "/buystarted")
     public String buyStarted() {
-        deleteProductService.cleanBuyDB();
+        buyProductService.cleanBuyDB();
         return "adminpages/buystarted";
     }
 
@@ -31,7 +31,8 @@ public class BuyController {
     public ModelAndView buyProductGet() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/buyproduct");
-        modelAndView.addObject("buyProduct", getProductService.findAll());
+        modelAndView.addObject("buyProduct", productService.findAll());
+        modelAndView.addObject("totalPrice", utilService.totalPrise());
         return modelAndView;
     }
 
@@ -43,8 +44,8 @@ public class BuyController {
                                        Model model) {
         model.addAttribute("id", id).addAttribute("quantity", quantity).addAttribute("totalVolume", totalVolume);
 
-        if (getProductService.checkingForNumber(quantity, totalVolume)) {
-            saveProductService.saveBayProduct(id, quantity);
+        if (utilService.checkingForNumber(quantity, totalVolume)) {
+            buyProductService.saveBayProduct(id, quantity);
         }
         return new ModelAndView("redirect:/product/buyproduct");
     }
@@ -54,7 +55,8 @@ public class BuyController {
     public ModelAndView endBuyProductGet() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/endbuyproduct");
-        modelAndView.addObject("product", getProductService.findAllBuyProduct());
+        modelAndView.addObject("product", buyProductService.findAllBuyProduct());
+        modelAndView.addObject("totalPriceEnd", utilService.totalPrise());
         return modelAndView;
     }
 
@@ -63,23 +65,23 @@ public class BuyController {
     public ModelAndView checkend() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/checkend");
-        exportToExcelService.check(getProductService.findAllBuyProduct());
-        updateProductService.endTransaction();
-        modelAndView.addObject("product", getProductService.findAllBuyProduct());
+        exportToExcelService.check(buyProductService.findAllBuyProduct());
+        utilService.endTransaction();
+        modelAndView.addObject("product", buyProductService.findAllBuyProduct());
         return modelAndView;
     }
 
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/deleteproductbuy")
     public ModelAndView deleteproduct(@RequestParam(value = "id") int id) {
-        deleteProductService.deleteBuy(id);
+        buyProductService.deleteBuy(id);
         return new ModelAndView("redirect:/product/endbuyproduct");
     }
 
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/failbuyproduct")
     public ModelAndView failbuyproduct() {
-        deleteProductService.cleanBuyDB();
+        buyProductService.cleanBuyDB();
         return new ModelAndView("redirect:/content");
     }
 
@@ -89,22 +91,17 @@ public class BuyController {
     }
 
     @Autowired
-    public void setDeleteProductService(DeleteProductService deleteProductService) {
-        this.deleteProductService = deleteProductService;
+    public void setBuyProductService(BuyProductService buyProductService) {
+        this.buyProductService = buyProductService;
     }
 
     @Autowired
-    public void setGetProductService(GetProductService getProductService) {
-        this.getProductService = getProductService;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
     @Autowired
-    public void setUpdateProductService(UpdateProductService updateProductService) {
-        this.updateProductService = updateProductService;
-    }
-
-    @Autowired
-    public void setSaveProductService(SaveProductService saveProductService) {
-        this.saveProductService = saveProductService;
+    public void setUtilService(UtilService utilService) {
+        this.utilService = utilService;
     }
 }

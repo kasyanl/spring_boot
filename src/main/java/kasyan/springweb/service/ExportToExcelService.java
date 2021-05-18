@@ -15,7 +15,8 @@ import java.util.List;
 @Service
 public class ExportToExcelService {
     static HSSFWorkbook workbook = new HSSFWorkbook();
-    private GetProductService getProductService;
+    private ProductService productService;
+    private UtilService utilService;
     static System.Logger logger;
 
     // сервис для экспорта всего списка продуктов в excel
@@ -25,7 +26,7 @@ public class ExportToExcelService {
 
     // сервис на экспорт списка продуктов одной категории в excel
     public void exportCategoryList(String category) {
-        exportList(getProductService.fineCategoryForRead(category));
+        exportList(productService.fineCategoryForRead(category));
     }
 
     // формирование таблицы excel и добавление данных из List
@@ -173,7 +174,7 @@ public class ExportToExcelService {
         quantity.setCellValue("TOTAL:");
 
         var totalPrice = rowProduct.createCell(4);
-        totalPrice.setCellValue(getProductService.totalPrise());
+        totalPrice.setCellValue(utilService.totalPrise());
 
         // название и путь для нашего файла (по умолчанию в корне проекта)
         var filename = "src/main/webapp/WEB-INF/downloads/xls/check.xls";
@@ -215,8 +216,14 @@ public class ExportToExcelService {
         actualPriceTop.setCellValue("Total, BYN");// название седьмого столбца
     }
 
+
     @Autowired
-    public void setGetProductService(GetProductService getProductService) {
-        this.getProductService = getProductService;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @Autowired
+    public void setUtilService(UtilService utilService) {
+        this.utilService = utilService;
     }
 }

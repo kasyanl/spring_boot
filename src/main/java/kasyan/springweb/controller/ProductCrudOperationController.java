@@ -1,6 +1,8 @@
 package kasyan.springweb.controller;
 
-import kasyan.springweb.service.*;
+import kasyan.springweb.service.ProductOfDeleteService;
+import kasyan.springweb.service.ProductService;
+import kasyan.springweb.service.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +18,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/product")
 public class ProductCrudOperationController {
 
-    private DeleteProductService deleteProductService;
-    private GetProductService getProductService;
-    private UpdateProductService updateProductService;
-    private SaveProductService saveProductService;
-    private RecoveryProductService recoveryProductService;
+   private ProductService productService;
+   private ProductOfDeleteService productOfDeleteService;
+   private UtilService utilService;
 
     // получение всего списка продуктов из основной БД
     @GetMapping(value = "/allproduct")
     public ModelAndView findAll() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/allproduct");
-        modelAndView.addObject("product", getProductService.findAll());
+        modelAndView.addObject("product", productService.findAll());
         return modelAndView;
     }
 
@@ -36,7 +36,7 @@ public class ProductCrudOperationController {
     public ModelAndView findAllForGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/allproductguest");
-        modelAndView.addObject("productGuest", getProductService.findAll());
+        modelAndView.addObject("productGuest", productService.findAll());
         return modelAndView;
     }
 
@@ -53,14 +53,14 @@ public class ProductCrudOperationController {
                             @RequestParam(value = "price") double price,
                             @RequestParam(value = "discount") double discount,
                             @RequestParam(value = "totalVolume") double totalVolume) {
-        saveProductService.saveProduct(category, name, price, discount, totalVolume);
+        productService.saveProduct(category, name, price, discount, totalVolume);
         return new ModelAndView("adminpages/allproduct");
     }
 
     // получение всего списка продуктов из корзины
     @GetMapping(value = "/bascket")
     public ModelAndView bascket() {
-        if (!getProductService.basketIsEmpty()) {
+        if (!utilService.basketIsEmpty()) {
             return new ModelAndView("redirect:/product/alldeletedproduct");
         }
         return new ModelAndView("adminpages/bascketempty");
@@ -76,42 +76,44 @@ public class ProductCrudOperationController {
     public ModelAndView findAllDeletedProduct() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/alldeleteproducts");
-        modelAndView.addObject("productDel", getProductService.findAllDeleted());
+        modelAndView.addObject("productDel", productOfDeleteService.findAllDeleted());
         return modelAndView;
     }
 
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/deleteproduct")
     public ModelAndView deleteproduct(@RequestParam(value = "id") int id){
-        deleteProductService.deleteProduct(id);
+        productOfDeleteService.saveProductOfDelete(id);
+        productService.deleteProduct(id);
+
         return new ModelAndView("redirect:/product/allproduct");
     }
 
     // получение страницы с сообщением, что продукт удален из корзины
     @GetMapping(value = "/deleteproductbasket")
     public ModelAndView deleteproductbasket(@RequestParam(value = "id") int id) {
-        deleteProductService.deleteOfBasket(id);
+        productOfDeleteService.deleteOfBasket(id);
         return new ModelAndView("adminpages/deleteproductbasket");
     }
 
     // очистка корзины
     @GetMapping(value = "/cleanbascket")
     public String cleanBascket() {
-        deleteProductService.cleanBasket();
+        productOfDeleteService.cleanBasket();
         return "adminpages/cleanbascket";
     }
 
     // восстановление всех данных из корзины
     @GetMapping(value = "/recoveredallproduct")
     public String recoveredAllProduct() {
-        recoveryProductService.recoveryAllProduct();
+        utilService.recoveryAllProduct();
         return "adminpages/recoveredallproduct";
     }
 
     // получение страницы с сообщением, что продукт восстановлен
     @GetMapping(value = "/recoveredproduct")
     public ModelAndView recoveredProduct(@RequestParam(value = "id") int id) {
-        recoveryProductService.recovered(id);
+        utilService.recovered(id);
         return new ModelAndView("adminpages/recoveredproduct");
     }
 
@@ -119,7 +121,7 @@ public class ProductCrudOperationController {
     @GetMapping(value = "/editproduct")
     public ModelAndView edit(@RequestParam(value = "id") int id) {
         var modelAndView = new ModelAndView("adminpages/editproduct");
-        modelAndView.addObject("product", getProductService.findById(id));
+        modelAndView.addObject("product", productService.findById(id));
         return modelAndView;
     }
 
@@ -134,32 +136,22 @@ public class ProductCrudOperationController {
         model.addAttribute("id", id).addAttribute("category", category)
                 .addAttribute("name", name).addAttribute("price", price)
                 .addAttribute("discount", discount).addAttribute("totalVolume", totalVolume);
-        updateProductService.update(id, category, name, price, discount, totalVolume);
+        productService.update(id, category, name, price, discount, totalVolume);
         return new ModelAndView("redirect:/product/allproduct");
     }
 
     @Autowired
-    public void setSaveProductService(SaveProductService saveProductService) {
-        this.saveProductService = saveProductService;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
     @Autowired
-    public void setDeleteProductService(DeleteProductService deleteProductService) {
-        this.deleteProductService = deleteProductService;
+    public void setProductOfDeleteService(ProductOfDeleteService productOfDeleteService) {
+        this.productOfDeleteService = productOfDeleteService;
     }
 
     @Autowired
-    public void setGetProductService(GetProductService getProductService) {
-        this.getProductService = getProductService;
-    }
-
-    @Autowired
-    public void setUpdateProductService(UpdateProductService updateProductService) {
-        this.updateProductService = updateProductService;
-    }
-
-    @Autowired
-    public void setRecoveryRoductService(RecoveryProductService recoveryProductService) {
-        this.recoveryProductService = recoveryProductService;
+    public void setUtilService(UtilService utilService) {
+        this.utilService = utilService;
     }
 }

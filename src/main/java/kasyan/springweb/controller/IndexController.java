@@ -1,7 +1,8 @@
 package kasyan.springweb.controller;
 
 import kasyan.springweb.service.ExportToExcelService;
-import kasyan.springweb.service.GetProductService;
+import kasyan.springweb.service.ProductOfDeleteService;
+import kasyan.springweb.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/")
 public class IndexController {
 
-    private GetProductService getProductService;
     private ExportToExcelService exportToExcelService;
+    private ProductService productService;
+    private ProductOfDeleteService productOfDeleteService;
 
     //получение стартовой страницы
     @GetMapping
@@ -47,31 +49,36 @@ public class IndexController {
     // экспорт данных из корзины в excel
     @GetMapping(value = "/exportexceldel")
     public String exportExcelDel() {
-        exportToExcelService.exportListOfBasket(getProductService.findAllDeleted());
+        exportToExcelService.exportListOfBasket(productOfDeleteService.findAllDeleted());
         return "adminpages/exportexceldel";
     }
 
     // экспорт данных  в excel основной БД для юзера
     @GetMapping(value = "/exportexcel")
     public String exportExcel() {
-        exportToExcelService.exportAllList(getProductService.findAll());
+        exportToExcelService.exportAllList(productService.findAll());
         return "adminpages/exportexcel";
     }
 
     // экспорт данных  в excel основной БД для гостя
     @GetMapping(value = "/exportexcelguest")
     public String exportExcelGuest() {
-        exportToExcelService.exportAllList(getProductService.findAll());
+        exportToExcelService.exportAllList(productService.findAll());
         return "guestpages/exportexcelguest";
-    }
-
-    @Autowired
-    public void setGetProductService(GetProductService getProductService) {
-        this.getProductService = getProductService;
     }
 
     @Autowired
     public void setExportToExcelService(ExportToExcelService exportToExcelService) {
         this.exportToExcelService = exportToExcelService;
+    }
+
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @Autowired
+    public void setProductOfDeleteService(ProductOfDeleteService productOfDeleteService) {
+        this.productOfDeleteService = productOfDeleteService;
     }
 }
