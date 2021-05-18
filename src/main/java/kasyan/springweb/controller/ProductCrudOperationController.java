@@ -25,7 +25,7 @@ public class ProductCrudOperationController {
     // получение всего списка продуктов из основной БД
     @GetMapping(value = "/allproduct")
     public ModelAndView findAll() {
-        var modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/allproduct");
         modelAndView.addObject("product", productService.findAll());
         return modelAndView;
