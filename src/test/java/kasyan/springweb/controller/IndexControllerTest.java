@@ -62,15 +62,15 @@ class IndexControllerTest extends AbstractTest {
 
     @Test
     void exportExcel() {
-
+//
 //        Date data = new Date();
 //
 //        doNothing().when(exportToExcelService).exportAllList((isA(List.class)));
 //        exportToExcelService.exportAllList(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
 //                new Product(2, "Fruits", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
-////
-////        verify(exportToExcelService).exportAllList(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
-////                new Product(2, "Fruits", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+//
+//        verify(exportToExcelService).exportAllList(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+//                new Product(2, "Fruits", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
 //        assertEquals("adminpages/exportexcel", indexController.exportExcel());
     }
 

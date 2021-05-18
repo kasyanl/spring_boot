@@ -86,41 +86,29 @@ class ProductServiceTest {
 
     @Test
     void saveProduct() {
-
+        Mockito.when(utilService.createId()).thenReturn(1);
+        Mockito.when(utilService.calculating(10.0, 20.0)).thenReturn(8.0);
+        final Product product = new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0);
+        productService.saveProduct("Fruits", "Banana", 10.0, 20.0, 10);
+        verify(productRepository).save(product);
     }
 
     @Test
     void update() {
-        Mockito.when(utilService.calculating(10.0, 50.0))
-                .thenReturn(5.0);
-
+        Mockito.when(utilService.calculating(10.0, 50.0)).thenReturn(5.0);
         doNothing().when(productRepository).update(isA(String.class), isA(String.class),
                 isA(Double.class), isA(Double.class), isA(Double.class), isA(Double.class), isA(Integer.class));
-
         productService.update(0, "Fruits", "Apple", 10.0, 50.0, 30.0);
-
         verify(productRepository).update("Fruits", "Apple", 10.0, 50.0, 5.0, 30.0, 0);
-
     }
 
     @Test
     void updateDiscountForCategory() {
-//        var data = new Date();
-//        Mockito.when(productRepository.findByCategory(Mockito.any(String.class)))
-//                .thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 50.0, 5.0, 10.0, data),
-//                        new Product(2, "Fruits", "Apple", 10.0, 50.0, 5.0, 10.0, data)));
-//
-//        Mockito.when(utilService.calculating(10.0, 50.0))
-//                .thenReturn(5.0);
-//
-//        doNothing().when(productRepository).update(isA(String.class), isA(String.class),
-//                isA(Double.class), isA(Double.class), isA(Double.class), isA(Double.class), isA(Integer.class));
-//
-//        productService.update(0, "Fruits", "Apple", 10.0, 50.0, 30.0);
-//
-//        List<Product> expected = List.of(new Product(1, "Fruits", "Banana", 10.0, 50.0, 5.0, 10.0, data),
-//                new Product(2, "Fruits", "Apple", 10.0, 50.0, 5.0, 10.0, data));
-//
-//        List <Product> actual = productService.updateDiscountForCategory("Fruits", 50.0);
+        var data = new Date();
+        Mockito.when(productRepository.findByCategory("Fruits"))
+                .thenReturn(List.of(new Product(0, "Fruits", "Apple", 10.0, 50.0, 5.0, 30.0, data)));
+        Mockito.when(utilService.calculating(10.0, 50.0)).thenReturn(5.0);
+        productService.updateDiscountForCategory("Fruits", 50.0);
+        verify(productRepository).update("Fruits", "Apple", 10.0, 50.0, 5.0,30.0, 0);
     }
 }

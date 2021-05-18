@@ -36,4 +36,14 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date data;
+
+    public Product(Integer id, String category, String name, double price, double discount, double actualPrice, double totalVolume) {
+        this.id = id;
+        this.category = category;
+        this.name = name;
+        this.price = price;
+        this.discount = discount;
+        this.actualPrice = actualPrice;
+        this.totalVolume = totalVolume;
+    }
 }
