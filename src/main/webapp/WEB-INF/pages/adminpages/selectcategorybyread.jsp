@@ -16,12 +16,12 @@
 <%@include file="nav.jsp" %>
 <h1>Выберите категориию:</h1>
 <div face="arial" size="+1">
-    <li><a href="${pageContext.request.contextPath}/product/finefruits">FRUITS</a>
-    <li><a href="${pageContext.request.contextPath}/product/fineberries">BERRIES</a>
-    <li><a href="${pageContext.request.contextPath}/product/finevegetables">VEGETABLES</a>
-    <li><a href="${pageContext.request.contextPath}/product/finemilkproduct">MILK_PRODUCT</a>
-    <li><a href="${pageContext.request.contextPath}/product/finemeat">MEAT</a>
-    <li><a href="${pageContext.request.contextPath}/product/finealcohol">ALCOHOLIC_BEVERAGES</a>
+    <li><a href="${pageContext.request.contextPath}/product/finecategory/FRUITS">FRUITS</a>
+    <li><a href="${pageContext.request.contextPath}/product/finecategory/BERRIES">BERRIES</a>
+    <li><a href="${pageContext.request.contextPath}/product/finecategory/VEGETABLES">VEGETABLES</a>
+    <li><a href="${pageContext.request.contextPath}/product/finecategory/MILK_PRODUCT">MILK_PRODUCT</a>
+    <li><a href="${pageContext.request.contextPath}/product/finecategory/MEAT">MEAT</a>
+    <li><a href="${pageContext.request.contextPath}/product/finecategory/ALCOHOLIC_BEVERAGES">ALCOHOLIC_BEVERAGES</a>
 </div>
 <br>
 <br>

@@ -3,8 +3,7 @@ package kasyan.springweb.controller;
 import kasyan.springweb.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -14,111 +13,35 @@ public class SearchCategoryController {
     private ProductService productService;
 
     // получение списка категории FRUITS
-    @GetMapping(value = "/finefruits")
-    public ModelAndView fineFruits() {
+    @GetMapping(value = "/finecategory/{category}")
+    public ModelAndView fineFruits(@PathVariable String category) {
         var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/finecategory/finefruits");
-        modelAndView.addObject("fineFruits", productService.fineCategoryForRead("FRUITS"));
-        return modelAndView;
-    }
-
-    // получение списка категории BERRIES
-    @GetMapping(value = "/fineberries")
-    public ModelAndView fineBerries() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/finecategory/fineberries");
-        modelAndView.addObject("fineBerries", productService.fineCategoryForRead("BERRIES"));
-        return modelAndView;
-    }
-
-    // получение списка категории VEGETABLES
-    @GetMapping(value = "/finevegetables")
-    public ModelAndView fineVegetables() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/finecategory/finevegetables");
-        modelAndView.addObject("fineVegetables", productService.fineCategoryForRead("VEGETABLES"));
-        return modelAndView;
-    }
-
-    // получение списка категории MILK_PRODUCT
-    @GetMapping(value = "/finemilkproduct")
-    public ModelAndView fineMilkProduct() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/finecategory/finemilkproduct");
-        modelAndView.addObject("fineMilkProduct", productService.fineCategoryForRead("MILK_PRODUCT"));
-        return modelAndView;
-    }
-
-    // получение списка категории ALCOHOLIC_BEVERAGES
-    @GetMapping(value = "/finealcohol")
-    public ModelAndView fineAlcohol() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/finecategory/finealcohol");
-        modelAndView.addObject("fineAlcohol", productService.fineCategoryForRead("ALCOHOLIC_BEVERAGES"));
-        return modelAndView;
-    }
-
-    // получение списка категории MEAT
-    @GetMapping(value = "/finemeat")
-    public ModelAndView fineMeat() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/finecategory/finemeat");
-        modelAndView.addObject("fineMeat", productService.fineCategoryForRead("MEAT"));
+        modelAndView.setViewName("adminpages/finecategory/" + category);
+        modelAndView.addObject("finecategory", productService.fineCategoryForRead(category));
         return modelAndView;
     }
 
     // получение списка категории FRUITS для Гостя
-    @GetMapping(value = "/finefruitsguest")
-    public ModelAndView fineFruitsGuest() {
+    @GetMapping(value = "/finefruitsguest/{category}")
+    public ModelAndView fineFruitsGuest(@PathVariable String category) {
         var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/finecategory/finefruitsguest");
-        modelAndView.addObject("fineFruitsGuest", productService.fineCategoryForRead("FRUITS"));
+        modelAndView.setViewName("guestpages/finecategory/" + category);
+        modelAndView.addObject("finecategory", productService.fineCategoryForRead(category));
         return modelAndView;
     }
 
-    // получение списка категории BERRIES для Гостя
-    @GetMapping(value = "/fineberriesguest")
-    public ModelAndView fineBerriesGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/finecategory/fineberriesguest");
-        modelAndView.addObject("fineBerriesGuest", productService.fineCategoryForRead("BERRIES"));
-        return modelAndView;
+    // получение страницы с формой для изменения скидки для категории ALCOHOLIC_BEVERAGES
+    @GetMapping(value = "/categorydiscount/{category}")
+    public String alcoholDiscountPage(@PathVariable String category) {
+        return "adminpages/insertdiscountcategory/" + category;
     }
 
-    // получение списка категории VEGETABLES для Гостя
-    @GetMapping(value = "/finevegetablesguest")
-    public ModelAndView fineVegetablesGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/finecategory/finevegetablesguest");
-        modelAndView.addObject("fineVegetablesGuest", productService.fineCategoryForRead("VEGETABLES"));
-        return modelAndView;
-    }
-
-    // получение списка категории MILK_PRODUCT для Гостя
-    @GetMapping(value = "/finemilkproductguest")
-    public ModelAndView fineMilkProductGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/finecategory/finemilkproductguest");
-        modelAndView.addObject("fineMilkProductGuest", productService.fineCategoryForRead("MILK_PRODUCT"));
-        return modelAndView;
-    }
-
-    // получение списка категории ALCOHOLIC_BEVERAGES для Гостя
-    @GetMapping(value = "/finealcoholguest")
-    public ModelAndView fineAlcoholGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/finecategory/finealcoholguest");
-        modelAndView.addObject("fineAlcoholGuest", productService.fineCategoryForRead("ALCOHOLIC_BEVERAGES"));
-        return modelAndView;
-    }
-
-    // получение списка категории MEAT для Гостя
-    @GetMapping(value = "/finemeatguest")
-    public ModelAndView fineMeatGuest() {
-        var modelAndView = new ModelAndView();
-        modelAndView.setViewName("guestpages/finecategory/finemeatguest");
-        modelAndView.addObject("fineMeatGuest", productService.fineCategoryForRead("MEAT"));
-        return modelAndView;
+    // отправка заданной скидки для категории ALCOHOLIC_BEVERAGES
+    @PostMapping(value = "/categorydiscount/{category}")
+    public ModelAndView editAlcoholDiscount(@RequestParam(value = "discount") double discount,
+                                            @PathVariable String category) {
+        productService.updateDiscountForCategory(category, discount);
+        return new ModelAndView("redirect:/product/finecategory/" + category);
     }
 
     @Autowired

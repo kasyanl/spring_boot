@@ -6,10 +6,7 @@ import kasyan.springweb.service.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 // Контроллер для работы с залогининым пользователем
@@ -18,16 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/product")
 public class ProductCrudOperationController {
 
-   private ProductService productService;
-   private ProductOfDeleteService productOfDeleteService;
-   private UtilService utilService;
+    private ProductService productService;
+    private ProductOfDeleteService productOfDeleteService;
+    private UtilService utilService;
 
     // получение всего списка продуктов из основной БД
     @GetMapping(value = "/allproduct")
     public ModelAndView findAll() {
-        ModelAndView modelAndView = new ModelAndView();
+        var modelAndView = new ModelAndView();
         modelAndView.setViewName("adminpages/allproduct");
-        modelAndView.addObject("product", productService.findAll());
+        modelAndView.addObject("allProduct", productService.findAll());
         return modelAndView;
     }
 
@@ -36,7 +33,7 @@ public class ProductCrudOperationController {
     public ModelAndView findAllForGuest() {
         var modelAndView = new ModelAndView();
         modelAndView.setViewName("guestpages/allproductguest");
-        modelAndView.addObject("productGuest", productService.findAll());
+        modelAndView.addObject("allProductGuest", productService.findAll());
         return modelAndView;
     }
 
@@ -82,7 +79,7 @@ public class ProductCrudOperationController {
 
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/deleteproduct")
-    public ModelAndView deleteproduct(@RequestParam(value = "id") int id){
+    public ModelAndView deleteproduct(@RequestParam(value = "id") int id) {
         productOfDeleteService.saveProductOfDelete(id);
         productService.deleteProduct(id);
 
@@ -121,7 +118,7 @@ public class ProductCrudOperationController {
     @GetMapping(value = "/editproduct")
     public ModelAndView edit(@RequestParam(value = "id") int id) {
         var modelAndView = new ModelAndView("adminpages/editproduct");
-        modelAndView.addObject("product", productService.findById(id));
+        modelAndView.addObject("editProduct", productService.findById(id));
         return modelAndView;
     }
 
@@ -138,6 +135,26 @@ public class ProductCrudOperationController {
                 .addAttribute("discount", discount).addAttribute("totalVolume", totalVolume);
         productService.update(id, category, name, price, discount, totalVolume);
         return new ModelAndView("redirect:/product/allproduct");
+    }
+
+    // сортировка списка по ID (от меньшего к большему)
+    @GetMapping(value = "/a/{sort}")
+    @ResponseBody
+    public ModelAndView sortAdmin(@PathVariable("sort") String sort) {
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("adminpages/allproduct");
+        modelAndView.addObject("allProduct", productService.sort(sort));
+        return modelAndView;
+    }
+
+    // сортировка списка по ID (от меньшего к большему) для Гостя
+    @GetMapping(value = "/g/{sort}")
+    @ResponseBody
+    public ModelAndView sortGuest(@PathVariable("sort") String sort) {
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("guestpages/allproductguest");
+        modelAndView.addObject("allProductGuest", productService.sort(sort));
+        return modelAndView;
     }
 
     @Autowired

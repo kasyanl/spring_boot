@@ -16,12 +16,12 @@
 <%@include file="navguest.jsp"%>
 <h1>Выберите категориию:</h1>
 <div face="arial" size="+1">
-    <li><a href="${pageContext.request.contextPath}/product/finefruitsguest">FRUITS</a>
-    <li><a href="${pageContext.request.contextPath}/product/fineberriesguest">BERRIES</a>
-    <li><a href="${pageContext.request.contextPath}/product/finevegetablesguest">VEGETABLES</a>
-    <li><a href="${pageContext.request.contextPath}/product/finemilkproductguest">MILK_PRODUCT</a>
-    <li><a href="${pageContext.request.contextPath}/product/finemeatguest">MEAT</a>
-    <li><a href="${pageContext.request.contextPath}/product/finealcoholguest">ALCOHOLIC_BEVERAGES</a>
+    <li><a href="${pageContext.request.contextPath}/product/finefruitsguest/FRUITS">FRUITS</a>
+    <li><a href="${pageContext.request.contextPath}/product/finefruitsguest/BERRIES">BERRIES</a>
+    <li><a href="${pageContext.request.contextPath}/product/finefruitsguest/VEGETABLES">VEGETABLES</a>
+    <li><a href="${pageContext.request.contextPath}/product/finefruitsguest/MILK_PRODUCT">MILK_PRODUCT</a>
+    <li><a href="${pageContext.request.contextPath}/product/finefruitsguest/MEAT">MEAT</a>
+    <li><a href="${pageContext.request.contextPath}/product/finefruitsguest/ALCOHOLIC_BEVERAGES">ALCOHOLIC_BEVERAGES</a>
 </div>
 <br>
 <br>

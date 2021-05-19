@@ -14,7 +14,7 @@
 <%@include file="../header.jsp"%>
 <%@include file="nav.jsp"%>
 <h2>Замените необходимые данные:</h2>
-<% Product product = (Product) request.getAttribute("product"); %>
+<% Product product = (Product) request.getAttribute("editProduct"); %>
 <form action="${pageContext.request.contextPath}/product/editproduct?id=<%=product.getId()%>" method="post">
     <label>
         категория<br>

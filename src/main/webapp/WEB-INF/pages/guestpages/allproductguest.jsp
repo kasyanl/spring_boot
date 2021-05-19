@@ -32,7 +32,7 @@
         <th colspan="2" width="100" align="center"><b> наличие, кг(шт)</b></th>
     </tr>
     <%@include file="sortelementguest.jsp" %>
-    <c:forEach var="product" items="${productGuest}">
+    <c:forEach var="product" items="${allProductGuest}">
         <tr>
             <td colspan="2" align="center"><c:out value="${product.id}"/></td>
             <td colspan="2" align="center"><c:out value="${product.category}"/></td>

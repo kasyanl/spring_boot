@@ -1,5 +1,6 @@
 package kasyan.springweb.service;
 
+import kasyan.springweb.bean.Product;
 import kasyan.springweb.bean.ProductOfDelete;
 import kasyan.springweb.repository.ProductOfDeleteRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,8 @@ class ProductOfDeleteServiceTest {
 
     @MockBean
     private ProductOfDeleteRepository productOfDeleteRepository;
+    @MockBean
+    private ProductService productService;
 
     ProductOfDeleteService productOfDeleteService;
 
@@ -27,16 +30,18 @@ class ProductOfDeleteServiceTest {
     void setUp() {
         productOfDeleteService = new ProductOfDeleteService();
         productOfDeleteService.setProductOfDeleteRepository(productOfDeleteRepository);
+        productOfDeleteService.setProductService(productService);
     }
+
     @Test
     void findAllDeleted() {
         var data = new Date();
         Mockito.when(productOfDeleteRepository.findAll())
-                .thenReturn(List.of(new ProductOfDelete(1, "Fruits", "Banana", 10.0, 20.0, 8.0,10.0, data),
-                        new ProductOfDelete(2, "Fruits", "Apple", 20.0, 20.0, 16.0,10.0, data)));
+                .thenReturn(List.of(new ProductOfDelete(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new ProductOfDelete(2, "Fruits", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
 
-        List<ProductOfDelete> expected = List.of(new ProductOfDelete(1, "Fruits", "Banana", 10.0, 20.0, 8.0,10.0, data),
-                new ProductOfDelete(2, "Fruits", "Apple", 20.0, 20.0, 16.0,10.0, data));
+        List<ProductOfDelete> expected = List.of(new ProductOfDelete(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new ProductOfDelete(2, "Fruits", "Apple", 20.0, 20.0, 16.0, 10.0, data));
 
         List<ProductOfDelete> actual = productOfDeleteService.findAllDeleted();
 
@@ -49,26 +54,34 @@ class ProductOfDeleteServiceTest {
         Mockito.when(productOfDeleteRepository.findById(Mockito.any(Integer.class)))
                 .thenReturn(Optional.of(new ProductOfDelete(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data)));
 
-        Optional <ProductOfDelete> expected = Optional.of(new ProductOfDelete(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0,  data));
+        Optional<ProductOfDelete> expected = Optional.of(new ProductOfDelete(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data));
 
-        Optional <ProductOfDelete> actual = productOfDeleteService.findProductOfBasketByID(1);
+        Optional<ProductOfDelete> actual = productOfDeleteService.findProductOfBasketByID(1);
 
         assertEquals(expected, actual);
     }
 
     @Test
     void deleteOfBasket() {
-        doNothing().when(productOfDeleteRepository).deleteById(1);
-        productOfDeleteRepository.deleteById(1);
-
-        verify(productOfDeleteRepository, times(1)).deleteById(1);
+        doNothing().when(productOfDeleteRepository).deleteById((isA(Integer.class)));
+        productOfDeleteService.deleteOfBasket(0);
+        verify(productOfDeleteRepository).deleteById(0);
     }
 
     @Test
     void cleanBasket() {
         doNothing().when(productOfDeleteRepository).deleteAll();
-        productOfDeleteRepository.deleteAll();
+        productOfDeleteService.cleanBasket();
+        verify(productOfDeleteRepository).deleteAll();
+    }
 
-        verify(productOfDeleteRepository, times(1)).deleteAll();
+    @Test
+    void saveProductOfDelete() {
+        Mockito.when(productService.findById(1))
+                .thenReturn(Optional.of(
+                        new Product(1, "Fruits", "Banana", 10.0, 50.0, 5.0,50.0)));
+        final ProductOfDelete product = new ProductOfDelete(1, "Fruits", "Banana", 10.0, 5.0, 50.0, 50.0);
+        productOfDeleteService.saveProductOfDelete(1);
+        verify(productOfDeleteRepository).save(product);
     }
 }

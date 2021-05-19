@@ -34,7 +34,7 @@
         <td></td>
     </tr>
     <%@include file="sortelement.jsp" %>
-    <c:forEach var="product" items="${product}">
+    <c:forEach var="product" items="${allProduct}">
         <tr>
             <td colspan="2" align="center"><c:out value="${product.id}"/></td>
             <td colspan="2" align="center"><c:out value="${product.category}"/></td>

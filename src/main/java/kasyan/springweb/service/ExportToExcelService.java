@@ -32,7 +32,7 @@ public class ExportToExcelService {
     // формирование таблицы excel и добавление данных из List
     public void exportList(List<Product> listProduct) {
 
-        var sheet = getRows("List products");
+        var sheet = getRows();
         // даем название колонок таблицы
         extracted(sheet);
 
@@ -77,7 +77,7 @@ public class ExportToExcelService {
     // формирование таблицы excel и добавление данных из List
     public void exportListOfBasket(List<ProductOfDelete> listProductDelete) {
 
-        var sheet = getRows("Deleted products");
+        var sheet = getRows();
         // даем название колонок таблицы
         extracted(sheet);
 
@@ -122,6 +122,7 @@ public class ExportToExcelService {
 
     // формирование таблицы excel из списка покупок
     public void check(List<BuyProduct> listProduct) {
+
         Sheet sheet = workbook.createSheet("check"); //название вкладки
         sheet.setColumnWidth(0, 2000); // ширина строк
         sheet.setColumnWidth(1, 5000);
@@ -186,8 +187,8 @@ public class ExportToExcelService {
         }
     }
 
-    private Sheet getRows(String s) {
-        Sheet sheet = workbook.createSheet(s); //название вкладки
+    private Sheet getRows() {
+        Sheet sheet = workbook.createSheet(); //название вкладки
         sheet.setColumnWidth(0, 1500); // ширина строк
         sheet.setColumnWidth(1, 6000);
         sheet.setColumnWidth(2, 6000);

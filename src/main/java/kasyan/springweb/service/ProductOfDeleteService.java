@@ -21,7 +21,6 @@ public class ProductOfDeleteService {
         return productOfDeleteRepository.findAll();
     }
 
-
     @Transactional
     public Optional<ProductOfDelete> findProductOfBasketByID(int id) {
         return productOfDeleteRepository.findById(id);

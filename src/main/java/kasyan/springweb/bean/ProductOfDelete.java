@@ -34,4 +34,14 @@ public class ProductOfDelete {
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date data;
+
+    public ProductOfDelete(Integer id, String category, String name, double price, double actualPrice, double totalVolume, double discount) {
+        this.id = id;
+        this.category = category;
+        this.name = name;
+        this.price = price;
+        this.actualPrice = actualPrice;
+        this.totalVolume = totalVolume;
+        this.discount = discount;
+    }
 }

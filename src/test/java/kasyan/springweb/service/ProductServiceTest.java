@@ -77,10 +77,8 @@ class ProductServiceTest {
 
     @Test
     void deleteProduct() {
-
         doNothing().when(productRepository).deleteById((isA(Integer.class)));
         productService.deleteProduct(0);
-
         verify(productRepository).deleteById(0);
     }
 
@@ -109,6 +107,178 @@ class ProductServiceTest {
                 .thenReturn(List.of(new Product(0, "Fruits", "Apple", 10.0, 50.0, 5.0, 30.0, data)));
         Mockito.when(utilService.calculating(10.0, 50.0)).thenReturn(5.0);
         productService.updateDiscountForCategory("Fruits", 50.0);
-        verify(productRepository).update("Fruits", "Apple", 10.0, 50.0, 5.0,30.0, 0);
+        verify(productRepository).update("Fruits", "Apple", 10.0, 50.0, 5.0, 30.0, 0);
+    }
+
+    @Test
+    void sortByIdTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortById()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbyid");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void sortByIdReverseTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByIdReverse()).
+                thenReturn(List.of(
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data),
+                        new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data)
+                        ));
+        List<Product> expected = List.of(
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data),
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbyidreverse");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByCategoryTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByCategory()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbycategory");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByCategoryReverseTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByCategoryReverse()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbycategoryreverse");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByNameTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByName()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbyname");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByNameReverseTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByNameReverse()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbynamereverse");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByPriceTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByPrice()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbyprice");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByPriceReverseTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByPriceReverse()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbypricereverse");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByDiscountTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByDiscount()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbydiscount");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByDiscountReverseTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByDiscountReverse()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbydiscountreverse");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByActualPriceTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByActualPrice()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbyactualprice");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByActualPriceReverseTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByActualPriceReverse()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbyactualpricereverse");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByTotalVolumeTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByTotalVolume()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbytotalvolume");
+        assertEquals(expected, actual);
+    }
+    @Test
+    void sortByTotalVolumeReverseTest() {
+        Date data = new Date();
+        Mockito.when(productRepository.sortByTotalVolumeReverse()).
+                thenReturn(List.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                        new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data)));
+        List<Product> expected = List.of(
+                new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data),
+                new Product(2, "Berries", "Apple", 20.0, 20.0, 16.0, 10.0, data));
+        List<Product> actual = productService.sort("sortbytotalvolumereverce");
+        assertEquals(expected, actual);
     }
 }

@@ -37,6 +37,7 @@ public class ProductService {
     public void deleteProduct(int id) {
         productRepository.deleteById(id);
     }
+
     /* отправка запроса на добавление новой записи в БД Product
  и автоматическим расчетом цены с учетом скидки */
     @Transactional
@@ -69,6 +70,52 @@ public class ProductService {
         List<Product> listCategory = fineCategoryForRead(category);
         for (Product product : listCategory) {
             update(product.getId(), category, product.getName(), product.getPrice(), discount, product.getTotalVolume());
+        }
+    }
+
+    public List<Product> sort(String sort) {
+        switch (sort) {
+            case "sortbyid":
+            case "sortbyidguest":
+                return productRepository.sortById();
+            case "sortbyidreverse":
+            case "sortbyidreverseguest":
+                return productRepository.sortByIdReverse();
+            case "sortbycategory":
+            case "sortbycategoryguest":
+                return productRepository.sortByCategory();
+            case "sortbycategoryreverse":
+            case "sortbycategoryreverseguest":
+                return productRepository.sortByCategoryReverse();
+            case "sortbyname":
+            case "sortbynameguest":
+                return productRepository.sortByName();
+            case "sortbynamereverse":
+            case "sortbynamereverseguest":
+                return productRepository.sortByNameReverse();
+            case "sortbyprice":
+            case "sortbypriceguest":
+                return productRepository.sortByPrice();
+            case "sortbypricereverse":
+            case "sortbypricereverseguest":
+                return productRepository.sortByPriceReverse();
+            case "sortbydiscount":
+            case "sortbydiscountguest":
+                return productRepository.sortByDiscount();
+            case "sortbydiscountreverse":
+            case "sortbydiscountreverseguest":
+                return productRepository.sortByDiscountReverse();
+            case "sortbyactualprice":
+            case "sortbyactualpriceguest":
+                return productRepository.sortByActualPrice();
+            case "sortbyactualpricereverse":
+            case "sortbyactualpricereverseguest":
+                return productRepository.sortByActualPriceReverse();
+            case "sortbytotalvolume":
+            case "sortbytotalvolumeguest":
+                return productRepository.sortByTotalVolume();
+            default:
+                return productRepository.sortByTotalVolumeReverse();
         }
     }
 

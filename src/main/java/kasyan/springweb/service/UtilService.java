@@ -15,7 +15,6 @@ public class UtilService {
     private ProductOfDeleteService productOfDeleteService;
     private ProductService productService;
 
-
     // расчет общей суммы покупок
     public double totalPrise() {
         List<BuyProduct> products = buyProductService.findAllBuyProduct();
@@ -58,7 +57,6 @@ public class UtilService {
         }
         return id;
     }
-
 
     // сохранение данных после изменения
     @Transactional
