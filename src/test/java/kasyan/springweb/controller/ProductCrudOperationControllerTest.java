@@ -43,7 +43,7 @@ class ProductCrudOperationControllerTest {
     void findAll() throws Exception {
         mockMvc.perform(get("/product/allproduct"))
                 .andDo(print())
-                .andExpect(status().is(302));
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -75,7 +75,7 @@ class ProductCrudOperationControllerTest {
                 .param("discount", discount)
                 .param("totalVolume", totalVolume))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().is(302));
     }
 
     @Test
@@ -159,7 +159,7 @@ class ProductCrudOperationControllerTest {
                 .param("discount", discount)
                 .param("totalVolume", totalVolume))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().is(302));
     }
 
     @Test

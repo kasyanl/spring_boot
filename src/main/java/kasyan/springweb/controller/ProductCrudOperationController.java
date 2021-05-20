@@ -23,7 +23,7 @@ public class ProductCrudOperationController {
     @GetMapping(value = "/allproduct")
     public ModelAndView findAll() {
         var modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:adminpages/allproduct");
+        modelAndView.setViewName("adminpages/allproduct");
         modelAndView.addObject("allProduct", productService.findAll());
         return modelAndView;
     }
@@ -51,7 +51,7 @@ public class ProductCrudOperationController {
                             @RequestParam(value = "discount") double discount,
                             @RequestParam(value = "totalVolume") double totalVolume) {
         var modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminpages/allproduct");
+        modelAndView.setViewName("redirect:allproduct");
         productService.saveProduct(category, name, price, discount, totalVolume);
         return modelAndView;
     }
