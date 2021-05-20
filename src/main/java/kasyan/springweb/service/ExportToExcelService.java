@@ -26,7 +26,7 @@ public class ExportToExcelService {
 
     // сервис на экспорт списка продуктов одной категории в excel
     public void exportCategoryList(String category) {
-        exportList(productService.fineCategoryForRead(category));
+       exportList(productService.fineCategoryForRead(category));
     }
 
     // формирование таблицы excel и добавление данных из List

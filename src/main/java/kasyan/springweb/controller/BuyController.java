@@ -1,6 +1,9 @@
 package kasyan.springweb.controller;
 
-import kasyan.springweb.service.*;
+import kasyan.springweb.service.BuyProductService;
+import kasyan.springweb.service.ExportToExcelService;
+import kasyan.springweb.service.ProductService;
+import kasyan.springweb.service.UtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,12 +45,16 @@ public class BuyController {
                                        @RequestParam(value = "quantity") double quantity,
                                        @RequestParam(value = "totalVolume") double totalVolume,
                                        Model model) {
-        model.addAttribute("id", id).addAttribute("quantity", quantity).addAttribute("totalVolume", totalVolume);
+        model.addAttribute("id", id)
+                .addAttribute("quantity", quantity)
+                .addAttribute("totalVolume", totalVolume);
 
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/product/buyproduct");
         if (utilService.checkingForNumber(quantity, totalVolume)) {
             buyProductService.saveBayProduct(id, quantity);
         }
-        return new ModelAndView("redirect:/product/buyproduct");
+        return modelAndView;
     }
 
     // получение страницы с формой для добавления продукта
@@ -74,15 +81,19 @@ public class BuyController {
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/deleteproductbuy")
     public ModelAndView deleteproduct(@RequestParam(value = "id") int id) {
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("adminpages/endbuyproduct");
         buyProductService.deleteBuy(id);
-        return new ModelAndView("redirect:/product/endbuyproduct");
+        return modelAndView;
     }
 
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/failbuyproduct")
     public ModelAndView failbuyproduct() {
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("adminpages/content");
         buyProductService.cleanBuyDB();
-        return new ModelAndView("redirect:/content");
+        return modelAndView;
     }
 
     @Autowired
