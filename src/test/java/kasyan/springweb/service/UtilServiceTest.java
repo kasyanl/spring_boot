@@ -129,6 +129,16 @@ class UtilServiceTest {
     }
 
     @Test
+    void endTransactionIsPresent() {
+        Mockito.when(buyProductService.findAllBuyProduct())
+                .thenReturn(List.of(
+                        new BuyProduct(3, "Banana", 10.0, 20.0, 200.0)));
+        Mockito.when(productService.findById(2)).thenReturn(Optional.empty());
+
+        utilService.endTransaction();
+        verify(productService).findById(3);
+    }
+    @Test
     void recoveryAllProduct() {
         var data = new Date();
         Mockito.when(productOfDeleteService.findAllDeleted())
@@ -154,5 +164,12 @@ class UtilServiceTest {
         utilService.recovered(1);
         verify(productOfDeleteService).deleteOfBasket(1);
         verify(productService).saveProduct("Fruits", "Banana", 10.0, 50.0, 5.0);
+    }
+    @Test
+    void recoveredIsPresent() {
+        Mockito.when(productOfDeleteService.findProductOfBasketByID(1))
+                .thenReturn(Optional.empty());
+        utilService.recovered(1);
+        verify(productOfDeleteService).findProductOfBasketByID(1);
     }
 }

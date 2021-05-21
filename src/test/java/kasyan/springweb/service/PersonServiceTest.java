@@ -39,7 +39,6 @@ class PersonServiceTest {
                 .thenReturn(List.of(new Person(1, "admin1", "password2"),
                         new Person(2, "admin", "password")));
         assertFalse(personService.verificationOfAuthenticity("admin1", "password"));
-
     }
 
     @Test

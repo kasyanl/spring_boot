@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -35,7 +34,6 @@ class BuyControllerTest {
     @Test
     void buyStarted() throws Exception {
         mockMvc.perform(get("/product/buystarted"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -43,12 +41,11 @@ class BuyControllerTest {
     void buyProductGet() throws Exception {
 
         mockMvc.perform(get("/product/buyproduct"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    void buyProductPost() throws Exception {
+    void buyProductPost1() throws Exception {
         String id = "1";
         String quantity = "20.0";
         String totalVolume = "1.0";
@@ -57,7 +54,18 @@ class BuyControllerTest {
                 .param("id", id)
                 .param("quantity", quantity)
                 .param("totalVolume", totalVolume))
-                .andDo(print())
+                .andExpect(status().is(302));
+    }
+    @Test
+    void buyProductPost2() throws Exception {
+        String id = "1";
+        String quantity = "20.0";
+        String totalVolume = "40.0";
+
+        mockMvc.perform(post("/product/buyproduct")
+                .param("id", id)
+                .param("quantity", quantity)
+                .param("totalVolume", totalVolume))
                 .andExpect(status().is(302));
     }
 
@@ -65,7 +73,6 @@ class BuyControllerTest {
     void endBuyProductGet() throws Exception {
 
         mockMvc.perform(get("/product/endbuyproduct"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -73,7 +80,6 @@ class BuyControllerTest {
     void checkend() throws Exception {
 
         mockMvc.perform(get("/product/checkend"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -81,7 +87,6 @@ class BuyControllerTest {
     void deleteproduct() throws Exception {
         String id = "1";
         mockMvc.perform(get("/product/deleteproductbuy").param("id", id))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -89,7 +94,6 @@ class BuyControllerTest {
     void failbuyproduct() throws Exception {
 
         mockMvc.perform(get("/product/failbuyproduct"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 }

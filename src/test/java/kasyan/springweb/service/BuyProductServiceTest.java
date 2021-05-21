@@ -73,4 +73,12 @@ class BuyProductServiceTest {
         buyProductService.saveBayProduct(1, 20.0);
         verify(buyProductRepository).save(buyProduct);
     }
+
+    @Test
+    void saveBayProductIsPresent() {
+        when(productService.findById(1))
+                .thenReturn(Optional.empty());
+        buyProductService.saveBayProduct(1, 20.0);
+        verify(productService).findById(1);
+    }
 }

@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -28,14 +27,12 @@ class ExportToExcelControllerTest {
     void exportExcelAlcohol() throws Exception {
 
         mockMvc.perform(get("/product/exportexcel/{category}",  "MEAT"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     void exportExcelAlcoholGuest() throws Exception {
         mockMvc.perform(get("/product/exportexcelguest/{category}",  "MEAT"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 }

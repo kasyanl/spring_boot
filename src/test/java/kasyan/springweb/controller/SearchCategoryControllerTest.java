@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -35,21 +34,18 @@ class SearchCategoryControllerTest {
     @Test
     void fineFruits() throws Exception {
         mockMvc.perform(get("/product/finecategory/{category}", "MEAT"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     void fineFruitsGuest() throws Exception {
         mockMvc.perform(get("/product/finefruitsguest/{category}", "MEAT"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     void alcoholDiscountPage() throws Exception {
         mockMvc.perform(get("/product/categorydiscount/{category}", "MEAT"))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -60,7 +56,6 @@ class SearchCategoryControllerTest {
 
         mockMvc.perform(post("/product/categorydiscount/{category}", "MEAT")
                 .param("discount", discount))
-                .andDo(print())
                 .andExpect(status().is(302));
     }
 }

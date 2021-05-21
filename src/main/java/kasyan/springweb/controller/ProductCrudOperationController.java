@@ -62,7 +62,7 @@ public class ProductCrudOperationController {
         if (!utilService.basketIsEmpty()) {
             return new ModelAndView("redirect:/product/alldeletedproduct");
         }
-        return new ModelAndView("adminpages/bascketempty");
+        return new ModelAndView("redirect:/product/bascketempty");
     }
 
     // получение страницы с формой для добавления продукта
