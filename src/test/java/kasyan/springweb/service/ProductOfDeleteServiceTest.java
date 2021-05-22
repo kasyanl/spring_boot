@@ -78,8 +78,7 @@ class ProductOfDeleteServiceTest {
     @Test
     void saveProductOfDelete() {
         Mockito.when(productService.findById(1))
-                .thenReturn(Optional.of(
-                        new Product(1, "Fruits", "Banana", 10.0, 50.0, 5.0, 50.0)));
+                .thenReturn(new Product(1, "Fruits", "Banana", 10.0, 50.0, 5.0, 50.0));
         final ProductOfDelete product = new ProductOfDelete(1, "Fruits", "Banana", 10.0, 5.0, 50.0, 50.0);
         productOfDeleteService.saveProductOfDelete(1);
         verify(productOfDeleteRepository).save(product);
@@ -88,7 +87,7 @@ class ProductOfDeleteServiceTest {
     @Test
     void saveProductOfDeleteIsPresent() {
         Mockito.when(productService.findById(1))
-                .thenReturn(Optional.empty());
+                .thenReturn(new Product());
         productOfDeleteService.saveProductOfDelete(1);
         verify(productService).findById(1);
     }

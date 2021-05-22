@@ -35,10 +35,8 @@ public class BuyProductService {
     // выбор продукта для покупки (передаем количество или вес продукта), добавляем в отдельную БД
     @Transactional
     public void saveBayProduct(int id, double quantity) {
-        var products = productService.findById(id);
+        var product = productService.findById(id);
         var buyProduct = new BuyProduct();
-        if (products.isPresent()) {
-            var product = products.get();
 
             double totalPrice = product.getActualPrice() * quantity;
 
@@ -50,7 +48,6 @@ public class BuyProductService {
 
             buyProductRepository.save(buyProduct);
         }
-    }
 
     @Autowired
     public void setBuyProductRepository(BuyProductRepository buyProductRepository) {

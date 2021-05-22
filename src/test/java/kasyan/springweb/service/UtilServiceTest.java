@@ -120,24 +120,13 @@ class UtilServiceTest {
         Mockito.when(buyProductService.findAllBuyProduct())
                 .thenReturn(List.of(
                         new BuyProduct(1, "Banana", 10.0, 20.0, 200.0)));
-        Mockito.when(productService.findById(1)).thenReturn(Optional.of(
-                new Product(1, "Fruits", "Banana", 10.0, 50.0, 5.0,30.0, data)));
+        Mockito.when(productService.findById(1)).thenReturn(new Product(1, "Fruits", "Banana", 10.0, 50.0, 5.0,30.0, data));
         doNothing().when(productService).update(1, "Fruits", "Banana", 10.0, 50.0, 10.0);
 
       utilService.endTransaction();
       verify(productService).update(1, "Fruits", "Banana", 10.0, 50.0, 10.0);
     }
 
-    @Test
-    void endTransactionIsPresent() {
-        Mockito.when(buyProductService.findAllBuyProduct())
-                .thenReturn(List.of(
-                        new BuyProduct(3, "Banana", 10.0, 20.0, 200.0)));
-        Mockito.when(productService.findById(2)).thenReturn(Optional.empty());
-
-        utilService.endTransaction();
-        verify(productService).findById(3);
-    }
     @Test
     void recoveryAllProduct() {
         var data = new Date();

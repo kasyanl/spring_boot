@@ -42,10 +42,8 @@ public class ProductOfDeleteService {
     public void saveProductOfDelete(int id) {
 
         var productOfDelete = new ProductOfDelete();
-        var products = productService.findById(id);
+        var product = productService.findById(id);
 
-        if (products.isPresent()) {
-            var product = products.get();
             productOfDelete.setId(product.getId());
             productOfDelete.setCategory(product.getCategory());
             productOfDelete.setName(product.getName());
@@ -55,7 +53,6 @@ public class ProductOfDeleteService {
             productOfDelete.setTotalVolume(product.getTotalVolume());
             productOfDeleteRepository.save(productOfDelete);
         }
-    }
 
     @Autowired
     public void setProductOfDeleteRepository(ProductOfDeleteRepository productOfDeleteRepository) {

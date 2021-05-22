@@ -62,13 +62,11 @@ public class UtilService {
     @Transactional
     public void endTransaction() {
         for (BuyProduct buyProduct : buyProductService.findAllBuyProduct()) {
-            var products = productService.findById(buyProduct.getId());
-            if (products.isPresent()) {
-                var product = products.get();
-                double totalVolume = product.getTotalVolume() - buyProduct.getQuantity();
-                productService.update(product.getId(), product.getCategory(), product.getName(),
-                        product.getPrice(), product.getDiscount(), totalVolume);
-            }
+            var product = productService.findById(buyProduct.getId());
+
+            double totalVolume = product.getTotalVolume() - buyProduct.getQuantity();
+            productService.update(product.getId(), product.getCategory(), product.getName(),
+                    product.getPrice(), product.getDiscount(), totalVolume);
         }
     }
 

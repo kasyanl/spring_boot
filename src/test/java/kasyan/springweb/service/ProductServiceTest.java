@@ -10,9 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -50,12 +49,12 @@ class ProductServiceTest {
     @Test
     void findById() {
         var data = new Date();
-        Mockito.when(productRepository.findById(Mockito.any(Integer.class)))
-                .thenReturn(Optional.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data)));
+        Mockito.when(productRepository.findById(1))
+                .thenReturn(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data));
 
-        Optional<Product> expected = Optional.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data));
+        Product expected = new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data);
 
-        Optional<Product> actual = productService.findById(1);
+        Product actual = productService.findById(1);
 
         assertEquals(expected, actual);
     }

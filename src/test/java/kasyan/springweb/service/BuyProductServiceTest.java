@@ -69,7 +69,7 @@ class BuyProductServiceTest {
         final BuyProduct buyProduct = new BuyProduct(1, "Banana", 8.0, 20.0, 160.0);
         var data = new Date();
         when(productService.findById(1))
-                .thenReturn(Optional.of(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data)));
+                .thenReturn(new Product(1, "Fruits", "Banana", 10.0, 20.0, 8.0, 10.0, data));
         buyProductService.saveBayProduct(1, 20.0);
         verify(buyProductRepository).save(buyProduct);
     }
@@ -77,7 +77,7 @@ class BuyProductServiceTest {
     @Test
     void saveBayProductIsPresent() {
         when(productService.findById(1))
-                .thenReturn(Optional.empty());
+                .thenReturn(new Product());
         buyProductService.saveBayProduct(1, 20.0);
         verify(productService).findById(1);
     }

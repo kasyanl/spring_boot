@@ -22,7 +22,8 @@ public class ProductCrudOperationController {
     // получение всего списка продуктов из основной БД
     @GetMapping(value = "/allproduct")
     public ModelAndView findAll() {
-        var modelAndView = new ModelAndView("adminpages/allproduct");
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("adminpages/allproduct");
         modelAndView.addObject("allProduct", productService.findAll());
         return modelAndView;
     }
@@ -30,7 +31,8 @@ public class ProductCrudOperationController {
     // полечение всего списка продуктов из лсновной бд для Гостя
     @GetMapping(value = "/allproductguest")
     public ModelAndView findAllForGuest() {
-        var modelAndView = new ModelAndView("guestpages/allproductguest");
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("guestpages/allproductguest");
         modelAndView.addObject("allProductGuest", productService.findAll());
         return modelAndView;
     }
@@ -43,22 +45,24 @@ public class ProductCrudOperationController {
 
     // отправка данных для добавления продуктов в БД и перенаправления на страницу со всем списком
     @PostMapping(value = "/addproduct")
-    public String add(@RequestParam(value = "category") String category,
+    public ModelAndView add(@RequestParam(value = "category") String category,
                             @RequestParam(value = "name") String name,
                             @RequestParam(value = "price") double price,
                             @RequestParam(value = "discount") double discount,
                             @RequestParam(value = "totalVolume") double totalVolume) {
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:allproduct");
         productService.saveProduct(category, name, price, discount, totalVolume);
-        return "redirect:allproduct";
+        return modelAndView;
     }
 
     // получение всего списка продуктов из корзины
     @GetMapping(value = "/bascket")
-    public String bascket() {
+    public ModelAndView bascket() {
         if (!utilService.basketIsEmpty()) {
-            return "redirect:/product/alldeletedproduct";
+            return new ModelAndView("redirect:/product/alldeletedproduct");
         }
-        return "redirect:/product/bascketempty";
+        return new ModelAndView("redirect:/product/bascketempty");
     }
 
     // получение страницы с формой для добавления продукта
@@ -69,24 +73,26 @@ public class ProductCrudOperationController {
 
     @GetMapping(value = "/alldeletedproduct")
     public ModelAndView findAllDeletedProduct() {
-        var modelAndView = new ModelAndView("adminpages/alldeleteproducts");
+        var modelAndView = new ModelAndView();
+        modelAndView.setViewName("adminpages/alldeleteproducts");
         modelAndView.addObject("productDel", productOfDeleteService.findAllDeleted());
         return modelAndView;
     }
 
     // получение страницы с сообщением, что продукт удален из основной БД
     @GetMapping(value = "/deleteproduct")
-    public String deleteproduct(@RequestParam(value = "id") int id) {
+    public ModelAndView deleteproduct(@RequestParam(value = "id") int id) {
         productOfDeleteService.saveProductOfDelete(id);
         productService.deleteProduct(id);
-        return "redirect:/product/allproduct";
+
+        return new ModelAndView("redirect:/product/allproduct");
     }
 
     // получение страницы с сообщением, что продукт удален из корзины
     @GetMapping(value = "/deleteproductbasket")
-    public String deleteproductbasket(@RequestParam(value = "id") int id) {
+    public ModelAndView deleteproductbasket(@RequestParam(value = "id") int id) {
         productOfDeleteService.deleteOfBasket(id);
-        return "adminpages/deleteproductbasket";
+        return new ModelAndView("adminpages/deleteproductbasket");
     }
 
     // очистка корзины
@@ -105,9 +111,9 @@ public class ProductCrudOperationController {
 
     // получение страницы с сообщением, что продукт восстановлен
     @GetMapping(value = "/recoveredproduct")
-    public String recoveredProduct(@RequestParam(value = "id") int id) {
+    public ModelAndView recoveredProduct(@RequestParam(value = "id") int id) {
         utilService.recovered(id);
-        return "adminpages/recoveredproduct";
+        return new ModelAndView("adminpages/recoveredproduct");
     }
 
     // получение страницы с формой для редактирования данных продукта
@@ -120,7 +126,7 @@ public class ProductCrudOperationController {
 
     // отправка обновленных данных в БД и перенаправление на страницу со всем списком
     @PostMapping(value = "/editproduct")
-    public String edit(@RequestParam(value = "id") int id,
+    public ModelAndView edit(@RequestParam(value = "id") int id,
                              @RequestParam(value = "category") String category,
                              @RequestParam(value = "name") String name,
                              @RequestParam(value = "price") double price,
@@ -129,8 +135,9 @@ public class ProductCrudOperationController {
         model.addAttribute("id", id).addAttribute("category", category)
                 .addAttribute("name", name).addAttribute("price", price)
                 .addAttribute("discount", discount).addAttribute("totalVolume", totalVolume);
+        var modelAndView = new ModelAndView("redirect:/product/allproduct");
         productService.update(id, category, name, price, discount, totalVolume);
-        return "redirect:/product/allproduct";
+        return modelAndView;
     }
 
     // сортировка списка по ID (от меньшего к большему)
