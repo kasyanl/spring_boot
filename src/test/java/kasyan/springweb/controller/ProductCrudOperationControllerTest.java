@@ -37,6 +37,7 @@ class ProductCrudOperationControllerTest {
         productCrudOperationController.setProductService(productService);
         productCrudOperationController.setProductOfDeleteService(productOfDeleteService);
         productCrudOperationController.setUtilService(utilService);
+
     }
 
     @Test
@@ -146,7 +147,7 @@ class ProductCrudOperationControllerTest {
         String totalVolume = "200.0";
 
 
-        mockMvc.perform(post("/product/addproduct")
+        mockMvc.perform(post("/product/editproduct")
                 .param("id", id)
                 .param("category", category)
                 .param("name", name)
